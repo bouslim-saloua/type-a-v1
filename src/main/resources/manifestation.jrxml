@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Manifestation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2a0a365-857a-4bc0-b7fc-8147e2bcab8a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="type-a2"/>
+	<parameter name="idManifestation" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[$F{id}.equals( $P{idManifestation} )]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+u.nom,
+u.prenom,
+u.email,
+u.telephone,
+dp.fonctionnalite,
+dp.grade,
+dp.salarie,
+dp.annee_these, 
+dp.directeur_these,
+dp.ced,
+dp.etablissement,
+dp.departement,
+dp.entite_recherche, 
+dp.respo_entite,
+m.id,
+m.date_creation,
+m.date_debut,
+m.date_fin,
+m.date_depart,
+m.date_retour,
+m.nature_participation,
+m.pays,
+m.titre_manifestation,
+m.titre_participation,
+m.ville,
+s.m_autre soutien,
+s.m_frais_inscription,
+s.m_hebergement, 
+s.m_titre_transport, 
+s.m_total,
+s.nature
+FROM utilisateur u,
+manifestation m, 
+donnee_pro dp,
+soutien s
+WHERE
+s.manifestation_id = m.id 
+and m.demandeur = u.id
+and u.id = dp.demandeur
+and m.id = $P{idManifestation}]]>
+	</queryString>
+	<field name="nom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nom"/>
+		<property name="com.jaspersoft.studio.field.label" value="nom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="utilisateur"/>
+	</field>
+	<field name="prenom" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prenom"/>
+		<property name="com.jaspersoft.studio.field.label" value="prenom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="utilisateur"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="utilisateur"/>
+	</field>
+	<field name="telephone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.label" value="telephone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="utilisateur"/>
+	</field>
+	<field name="fonctionnalite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="fonctionnalite"/>
+		<property name="com.jaspersoft.studio.field.label" value="fonctionnalite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="grade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="grade"/>
+		<property name="com.jaspersoft.studio.field.label" value="grade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="salarie" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="salarie"/>
+		<property name="com.jaspersoft.studio.field.label" value="salarie"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="annee_these" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="annee_these"/>
+		<property name="com.jaspersoft.studio.field.label" value="annee_these"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="directeur_these" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="directeur_these"/>
+		<property name="com.jaspersoft.studio.field.label" value="directeur_these"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="ced" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ced"/>
+		<property name="com.jaspersoft.studio.field.label" value="ced"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="etablissement" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="etablissement"/>
+		<property name="com.jaspersoft.studio.field.label" value="etablissement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="departement" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="departement"/>
+		<property name="com.jaspersoft.studio.field.label" value="departement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="entite_recherche" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="entite_recherche"/>
+		<property name="com.jaspersoft.studio.field.label" value="entite_recherche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="respo_entite" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="respo_entite"/>
+		<property name="com.jaspersoft.studio.field.label" value="respo_entite"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="donnee_pro"/>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="date_creation" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_creation"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_creation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="date_debut" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_debut"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_debut"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="date_fin" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_fin"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_fin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="date_depart" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_depart"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_depart"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="date_retour" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_retour"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_retour"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="nature_participation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nature_participation"/>
+		<property name="com.jaspersoft.studio.field.label" value="nature_participation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="pays" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pays"/>
+		<property name="com.jaspersoft.studio.field.label" value="pays"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="titre_manifestation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titre_manifestation"/>
+		<property name="com.jaspersoft.studio.field.label" value="titre_manifestation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="titre_participation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="titre_participation"/>
+		<property name="com.jaspersoft.studio.field.label" value="titre_participation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="ville" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="ville"/>
+		<property name="com.jaspersoft.studio.field.label" value="ville"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="manifestation"/>
+	</field>
+	<field name="soutien" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="m_autre"/>
+		<property name="com.jaspersoft.studio.field.label" value="soutien"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<field name="m_frais_inscription" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="m_frais_inscription"/>
+		<property name="com.jaspersoft.studio.field.label" value="m_frais_inscription"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<field name="m_titre_transport" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="m_titre_transport"/>
+		<property name="com.jaspersoft.studio.field.label" value="m_titre_transport"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<field name="m_hebergement" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="m_hebergement"/>
+		<property name="com.jaspersoft.studio.field.label" value="m_hebergement"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<field name="m_total" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="m_total"/>
+		<property name="com.jaspersoft.studio.field.label" value="m_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<field name="nature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nature"/>
+		<property name="com.jaspersoft.studio.field.label" value="nature"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="soutien"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="10" width="156" height="18" uuid="a08776ea-54d5-40cb-8edc-a9407a9ea814"/>
+				<text><![CDATA[Demande Soutien Type A]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="40" width="100" height="30" uuid="3ccbf3d1-62c5-47a8-88a3-b135d1face85"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="40" width="80" height="30" uuid="eb416dcd-3b85-44c4-b999-f6b1e458f8c2"/>
+				<text><![CDATA[N° Demande : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="10" width="220" height="30" uuid="5c54f753-df3d-4351-89e8-f4efa516ee1b"/>
+				<text><![CDATA[Type de la demande : Manifestation Scientifique]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="53" width="100" height="30" uuid="688cba1a-4766-451f-8531-1e92ecdd3abc"/>
+				<textFieldExpression><![CDATA[$F{date_creation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="53" width="100" height="30" uuid="e0aed5ef-717f-4583-afe8-8a69957512c1"/>
+				<text><![CDATA[Date de création : ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="660" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="12" width="160" height="30" uuid="7da4e6b7-d57c-41eb-8c38-13069160a22d"/>
+				<text><![CDATA[Informations Demandeur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="40" width="154" height="20" uuid="12843f44-f640-4dce-9ead-b29fad0495be"/>
+				<text><![CDATA[Informations personnelles : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="59" width="100" height="30" uuid="bcd610ce-26f4-474a-ab8f-01086069db1f"/>
+				<textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="59" width="100" height="30" uuid="3c8d4e33-3c3e-4ea9-bf51-ee131da80a93"/>
+				<text><![CDATA[nom]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="58" width="100" height="30" uuid="a2d5d0aa-063f-4467-aa3e-97660e621db4"/>
+				<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="318" y="58" width="100" height="30" uuid="bce6d176-5c1f-41c9-97bb-5f0bc8080c9c"/>
+				<text><![CDATA[prenom]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="97" width="100" height="30" uuid="4113b487-0200-4603-97fc-fde9adb999fb"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="97" width="100" height="30" uuid="744aa044-600e-4abe-9a76-64524be235cd"/>
+				<text><![CDATA[email]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="97" width="100" height="30" uuid="1d3a0c74-b3a9-436c-829e-5bda930b7e77"/>
+				<textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="318" y="97" width="100" height="30" uuid="90d075d9-af65-488f-8a7b-75769daca8a6"/>
+				<text><![CDATA[telephone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="127" width="148" height="24" uuid="5710a461-bc0a-4991-9591-b648660c00a2"/>
+				<text><![CDATA[Informations professionnelles : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="149" width="100" height="30" uuid="ac05f198-f590-4c68-b1d5-168d6d61ce40"/>
+				<textFieldExpression><![CDATA[$F{fonctionnalite}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="149" width="100" height="30" uuid="95d25e59-792c-4fea-9faa-ce40bcaf33eb"/>
+				<text><![CDATA[fonctionnalite]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="419" y="149" width="100" height="30" uuid="c62c5bba-4c59-4cfa-b184-056c3fa6b06a"/>
+				<textFieldExpression><![CDATA[$F{salarie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="319" y="149" width="100" height="30" uuid="ab9e9db9-9d0a-4691-87d6-73cf494a60eb"/>
+				<text><![CDATA[salarie]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="185" width="100" height="30" uuid="f6d34edb-550d-4a9e-bfb2-76b73811e81e"/>
+				<textFieldExpression><![CDATA[$F{annee_these}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="185" width="100" height="30" uuid="09a7f8ba-1fc8-4258-a2fe-3932e461539e"/>
+				<text><![CDATA[annee_these]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="183" width="100" height="30" uuid="5ba4e81b-bf1b-4b5e-8bd2-a2b54fb9da1f"/>
+				<textFieldExpression><![CDATA[$F{directeur_these}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="183" width="100" height="30" uuid="c5a992d1-26da-4e50-981d-48486aee3106"/>
+				<text><![CDATA[directeur_these]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="222" width="100" height="30" uuid="ae800f9c-61ea-48f0-a0f4-36ec2d6685df"/>
+				<textFieldExpression><![CDATA[$F{ced}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="222" width="100" height="30" uuid="ddf0f4fe-6f24-4ea9-a0f6-8c5d5e558092"/>
+				<text><![CDATA[ced]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="220" width="100" height="30" uuid="3d00dba9-35fc-4647-b67a-c2f1ab194438"/>
+				<textFieldExpression><![CDATA[$F{etablissement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="220" width="100" height="30" uuid="368c1eb2-55b9-492e-ba24-4aacdd6cefc7"/>
+				<text><![CDATA[etablissement]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="261" width="100" height="30" uuid="38801e20-77fd-4d25-ae76-a22090ce98a4"/>
+				<textFieldExpression><![CDATA[$F{departement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="29" y="261" width="100" height="30" uuid="6485095d-ff57-43a9-9276-3b6e0dc719d5"/>
+				<text><![CDATA[departement]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="418" y="262" width="100" height="30" uuid="b5aba94c-ad9f-415a-9ab5-a48b25d5f8f7"/>
+				<textFieldExpression><![CDATA[$F{entite_recherche}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="318" y="262" width="100" height="30" uuid="5faa3f1c-0009-41cd-82e1-de7201e92291"/>
+				<text><![CDATA[entite_recherche]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="128" y="299" width="100" height="30" uuid="77d7b4f1-e7a8-42d0-8cf2-c6be25380254"/>
+				<textFieldExpression><![CDATA[$F{respo_entite}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="299" width="100" height="30" uuid="fee26030-377f-4521-a61d-ed8611fe9142"/>
+				<text><![CDATA[respo_entite]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="322" width="220" height="30" uuid="dee524cb-2962-4d18-a395-c4197c5abd8b"/>
+				<text><![CDATA[Information sur Manifestation scientifique]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="346" width="100" height="30" uuid="0966e894-8204-4e43-9960-a3a9109ee5ff"/>
+				<textFieldExpression><![CDATA[$F{pays}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="346" width="100" height="30" uuid="4342da39-30ad-4fa6-aebc-f62d9b767883"/>
+				<text><![CDATA[pays]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="347" width="100" height="30" uuid="9dc584ff-5f84-4171-b8f3-79c2c8c80cf5"/>
+				<textFieldExpression><![CDATA[$F{ville}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="347" width="100" height="30" uuid="7a57326c-ab64-4afb-80e9-ef65443acb03"/>
+				<text><![CDATA[ville]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="381" width="100" height="30" uuid="5c93bb96-0299-4f3d-ba14-d2d46d3d08d9"/>
+				<textFieldExpression><![CDATA[$F{date_debut}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="381" width="100" height="30" uuid="f4308a9e-3f33-46c4-a9b3-d2aa42b0b867"/>
+				<text><![CDATA[date_debut]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="382" width="100" height="30" uuid="25330d76-f7d2-4f0d-bf4b-6a35d0978cca"/>
+				<textFieldExpression><![CDATA[$F{date_fin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="382" width="100" height="30" uuid="155f7791-7991-4d1b-b370-e18a32d2c149"/>
+				<text><![CDATA[date_fin]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="416" width="100" height="30" uuid="1dda5521-20ce-4ad1-b04d-94010d2c1323"/>
+				<textFieldExpression><![CDATA[$F{date_depart}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="416" width="100" height="30" uuid="ec147684-e55f-4d92-96dd-7a0ef5895bbe"/>
+				<text><![CDATA[date_depart]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="418" width="100" height="30" uuid="7a92db9b-b7be-4390-be06-daa306b278d7"/>
+				<textFieldExpression><![CDATA[$F{date_retour}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="320" y="418" width="100" height="30" uuid="dda26b35-20ec-442a-803f-fc912bcdd0d7"/>
+				<text><![CDATA[date_retour]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="453" width="100" height="30" uuid="ab4bdd10-04b8-43eb-97a9-73315a00c100"/>
+				<textFieldExpression><![CDATA[$F{titre_manifestation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="453" width="100" height="30" uuid="86d05821-557b-4032-8168-de5c6fae9f73"/>
+				<text><![CDATA[titre_manifestation]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="421" y="453" width="100" height="30" uuid="d08203fe-1f00-4c62-9017-3a31b2977c41"/>
+				<textFieldExpression><![CDATA[$F{titre_participation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="321" y="453" width="100" height="30" uuid="ae075ac2-2c98-44f4-b69b-8c87ef4376dd"/>
+				<text><![CDATA[titre_participation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="487" width="164" height="30" uuid="3dd1861d-dc21-44ce-8d75-28f7bbb1c88c"/>
+				<text><![CDATA[Informations sur le soutien]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="514" width="100" height="30" uuid="21b684f9-f173-46bc-8cce-4d3a17576284"/>
+				<textFieldExpression><![CDATA[$F{nature}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="514" width="100" height="30" uuid="bc5f0b2c-eb8c-4daa-8b2d-9c6fb832a2f7"/>
+				<text><![CDATA[nature]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="551" width="100" height="30" uuid="44336e9d-59f5-45c3-9c54-948dbf15f727"/>
+				<textFieldExpression><![CDATA[$F{m_titre_transport}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="551" width="100" height="30" uuid="3df8389a-5079-4f4f-bc00-1821518100bc"/>
+				<text><![CDATA[m_titre_transport]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="422" y="550" width="100" height="30" uuid="dbaa66c0-ccdb-4c01-b3d7-11c1befc7ca9"/>
+				<textFieldExpression><![CDATA[$F{m_frais_inscription}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="322" y="550" width="100" height="30" uuid="dd641959-ce2d-411a-ae76-c34018adc919"/>
+				<text><![CDATA[m_frais_inscription]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="589" width="100" height="30" uuid="10e4331c-14f3-45f0-b275-7a17e1205ca3"/>
+				<textFieldExpression><![CDATA[$F{m_hebergement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="589" width="100" height="30" uuid="0cc8b8e2-8d17-4be1-93e0-6985dd708c0c"/>
+				<text><![CDATA[m_hebergement]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="589" width="100" height="30" uuid="84cae6a8-5f0f-48a4-9a13-37b64025053d"/>
+				<textFieldExpression><![CDATA[$F{soutien}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="323" y="589" width="100" height="30" uuid="1473df6d-39bd-44c0-92ff-6b723afb4f2c"/>
+				<text><![CDATA[montant autre]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="630" width="100" height="30" uuid="7902f040-ff96-444c-b5ba-89c921be9e22"/>
+				<textFieldExpression><![CDATA[$F{m_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="29" y="630" width="100" height="30" uuid="8d489496-f22d-4bdd-9e1c-2609afe6950e"/>
+				<text><![CDATA[m_total]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>
