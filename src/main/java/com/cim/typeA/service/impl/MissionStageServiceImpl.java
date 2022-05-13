@@ -116,6 +116,11 @@ return id;
 
 }
 
+@Override
+public List<MissionStage> findAllByDateCreation(){
+return missionStageRepository.findAllByDateCreation();
+}
+
 
 @Override
 public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException {

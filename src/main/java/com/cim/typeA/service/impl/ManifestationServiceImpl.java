@@ -158,6 +158,10 @@ return id;
 
 }
 
+@Override
+public List<Manifestation> findAllByDateCreation(){
+return manifestationRepository.findAllByDateCreation();
+}
 
 
 @Override

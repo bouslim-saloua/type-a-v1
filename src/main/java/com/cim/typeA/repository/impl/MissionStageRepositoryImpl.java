@@ -38,7 +38,7 @@ private ResourceLoader resourceLoader;
  public JasperPrint exportPdfFile(Long id) throws SQLException, JRException, IOException {
      Connection conn = jdbcTemplate.getDataSource().getConnection();
 
-  String path = resourceLoader.getResource("classpath:missionStage.jrxml").getURI().getPath();
+  String path = resourceLoader.getResource("classpath:mission_stage.jrxml").getURI().getPath();
 //File file = new ClassPathResource("data/data.json").getFile();
 
 //String path= file.getAbsolutePath();

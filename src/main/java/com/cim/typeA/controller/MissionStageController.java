@@ -123,6 +123,10 @@ OutputStream out = response.getOutputStream();
 missionStageService.exportPdfFile(id, out);
 }
 
+@GetMapping("/History")
+public ResponseEntity<?> findAllByDateCreation(){
+return ResponseEntity.ok().body(missionStageService.findAllByDateCreation());
+}
 
 
 }

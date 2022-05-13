@@ -38,4 +38,7 @@ public Long countAllAccepted();
 
 @Query(value="SELECT COUNT(m.id) FROM Manifestation m WHERE m.status='en cours'")
 public Long countAllInProgress();
+
+@Query(value="SELECT m FROM Manifestation ORDER BY m.dateCreation ASC")
+public List<Manifestation> findAllByDateCreation();
 }

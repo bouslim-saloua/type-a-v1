@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -143,5 +141,10 @@ response.setContentType("application/x-download");
  response.setHeader("Content-Disposition", String.format("attachment; filename=\"manifestation.pdf\""));
 OutputStream out = response.getOutputStream();
 manifestationService.exportPdfFile(id, out);
+}
+
+@GetMapping("/History")
+public ResponseEntity<?> findAllByDateCreation(){
+return ResponseEntity.ok().body(manifestationService.findAllByDateCreation());
 }
 }
