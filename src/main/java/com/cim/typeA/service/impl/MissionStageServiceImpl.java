@@ -8,8 +8,15 @@ import com.cim.typeA.model.MissionStage;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.cim.typeA.repository.MissionStageRepository;
+import com.cim.typeA.repository.impl.MissionStageRepositoryImpl;
 import com.cim.typeA.service.MissionStageService;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -19,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class MissionStageServiceImpl implements MissionStageService{
-   
+   final MissionStageRepositoryImpl missionStageRepositoryImpl;
     final MissionStageRepository missionStageRepository;
 
 
@@ -110,6 +117,10 @@ return id;
 }
 
 
-
+@Override
+public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException {
+ JasperPrint jasperPrint =  missionStageRepositoryImpl.exportPdfFile(id);
+JasperExportManager.exportReportToPdfStream(jasperPrint, outPutStream);
+}
 
 }

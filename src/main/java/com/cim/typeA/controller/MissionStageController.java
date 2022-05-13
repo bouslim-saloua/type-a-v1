@@ -7,9 +7,14 @@ package com.cim.typeA.controller;
 import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.service.MissionStageService;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/mission")
 @AllArgsConstructor
 public class MissionStageController {
+
 final MissionStageService missionStageService;
 
 
@@ -108,7 +114,14 @@ if(id == null ) return ResponseEntity.badRequest().body("L'identifiant fourni n'
 return ResponseEntity.ok().body("La missionStage [ " + missionStageService.delete(id) +" est supprimé avec success");
 }
 
+ @GetMapping("/id/{id}")
+ public void generateReport(@PathVariable Long id, HttpServletResponse response) throws IOException, JRException, SQLException {
+response.setContentType("application/x-download");
 
+ response.setHeader("Content-Disposition", String.format("attachment; filename=\"mission_stage.pdf\""));
+OutputStream out = response.getOutputStream();
+missionStageService.exportPdfFile(id, out);
+}
 
 
 

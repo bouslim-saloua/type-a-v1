@@ -138,16 +138,6 @@ manifestationService.exportPdfFile(response, idManifestation);
 
  @GetMapping("/id/{id}")
  public void generateReport(@PathVariable Long id, HttpServletResponse response) throws IOException, JRException, SQLException {
- /* JasperPrint jasperPrint = null;
-
-  response.setContentType("application/x-download");
-  response.setHeader("Content-Disposition", String.format("attachment; filename=\"manifestation.pdf\""));
-
-  OutputStream out = response.getOutputStream();
-  jasperPrint = manifestationService.exportPdfFile(id);
-  JasperExportManager.exportReportToPdfStream(jasperPrint, out);
- }*/
-
 response.setContentType("application/x-download");
 
  response.setHeader("Content-Disposition", String.format("attachment; filename=\"manifestation.pdf\""));

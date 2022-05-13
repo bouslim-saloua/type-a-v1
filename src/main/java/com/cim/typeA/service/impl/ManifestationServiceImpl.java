@@ -62,8 +62,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @Service
 public class ManifestationServiceImpl implements ManifestationService {
 
-@Autowired
-private ManifestationRepositoryImpl manifestationRepositoryImpl;
+
+final ManifestationRepositoryImpl manifestationRepositoryImpl;
 final ManifestationRepository manifestationRepository;
 @Qualifier("jdbcTemplate")
 private JdbcTemplate jdbcTemplate;
@@ -160,46 +160,6 @@ return id;
 
 
 
-
-
-
-
-
-/*@Override
-public void getReport(Long id) throws JRException, SQLException{
-   InputStream employeeReportStream = getClass().getResourceAsStream("/Manifestation.jrxml");
-JasperReport jasperReport = JasperCompileManager.compileReport(employeeReportStream);
-    JRSaver.saveObject(jasperReport, "manifestation.jasper");
-
-///exporting our report as pdf
-//filling the report
-Map<String, Object> parameters = new HashMap<>();
-parameters.put("idManifestation", id);
-JasperPrint jasperPrint = JasperFillManager.fillReport(
-  jasperReport, parameters, new WebConfig().dataSource().getConnection());
-
-JRPdfExporter exporter = new JRPdfExporter();
-    
-exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-exporter.setExporterOutput(
-  new SimpleOutputStreamExporterOutput("manifestation.pdf"));
-
-SimplePdfReportConfiguration reportConfig
-  = new SimplePdfReportConfiguration();
-reportConfig.setSizePageToContent(true);
-reportConfig.setForceLineBreakPolicy(false);
-
-    SimplePdfExporterConfiguration exportConfig
-  = new SimplePdfExporterConfiguration();
-exportConfig.setMetadataAuthor("saloua");
-exportConfig.setEncrypted(true);
-exportConfig.setAllowedPermissionsHint("PRINTING");
-
-exporter.setConfiguration(reportConfig);
-exporter.setConfiguration(exportConfig);
-
-exporter.exportReport();
-}*/
 @Override
 public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException {
  JasperPrint jasperPrint =  manifestationRepositoryImpl.exportPdfFile(id);

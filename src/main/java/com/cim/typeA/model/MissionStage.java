@@ -27,12 +27,12 @@ private Date dateCreation;
 //Intitulé mission ou stage
 @NotNull
 private String titre;
+
 @NotNull
-private String cadre;
 private String respoMarocain;
-private String respoEtranger;
 @NotNull
-private String lieu;
+private String partenaireEtranger;
+
 @NotNull
 @Temporal(TemporalType.DATE)
 private Date dateDebut;
@@ -51,6 +51,14 @@ private Boolean hasCurrentTypeA;
 private String cadreSoutien;
 @NotNull
 private String status;
+
+@NotNull
+private String pays;
+@NotNull
+private String ville;
+@NotNull
+private String objet;
+
 
 @ManyToOne
 private Demandeur demandeur;

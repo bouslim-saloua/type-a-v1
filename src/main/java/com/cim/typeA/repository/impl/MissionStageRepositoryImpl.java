@@ -4,16 +4,12 @@
  */
 package com.cim.typeA.repository.impl;
 
-import com.cim.typeA.repository.ManifestationRepository;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -21,11 +17,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 
 /**
  *
@@ -33,10 +27,8 @@ import org.springframework.stereotype.Repository;
  */
 @Transactional
 @Repository
-@RequiredArgsConstructor
-public class ManifestationRepositoryImpl{
-    
-@Autowired
+public class MissionStageRepositoryImpl {
+  @Autowired
  @Qualifier("jdbcTemplate")
 private JdbcTemplate jdbcTemplate;
 
@@ -46,7 +38,7 @@ private ResourceLoader resourceLoader;
  public JasperPrint exportPdfFile(Long id) throws SQLException, JRException, IOException {
      Connection conn = jdbcTemplate.getDataSource().getConnection();
 
-  String path = resourceLoader.getResource("classpath:manifestation.jrxml").getURI().getPath();
+  String path = resourceLoader.getResource("classpath:missionStage.jrxml").getURI().getPath();
 //File file = new ClassPathResource("data/data.json").getFile();
 
 //String path= file.getAbsolutePath();
@@ -55,10 +47,9 @@ private ResourceLoader resourceLoader;
   // Parameters for report
      Map<String, Object> parameters = new HashMap<String, Object>();
 //Fill parameters
-parameters.put("idManifestation", id);
+parameters.put("idMission", id);
   JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, conn);
 
   return print;
- }
-
+ }  
 }

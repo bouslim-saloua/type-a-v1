@@ -5,7 +5,11 @@
 package com.cim.typeA.service;
 
 import com.cim.typeA.model.MissionStage;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.List;
+import net.sf.jasperreports.engine.JRException;
 /**
  *
  * @author HP
@@ -31,4 +35,6 @@ Long countAllRefused();
 
  Long countAllAccepted();
 Long countAllInProgress();
+
+void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException ;
 }
