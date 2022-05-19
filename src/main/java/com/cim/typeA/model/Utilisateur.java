@@ -10,10 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 /**
  *
@@ -33,7 +33,6 @@ private String nom;
 @NotNull
 private String prenom;
 
-private String username;
 @Email
 @NotNull
 private String email;
@@ -49,12 +48,12 @@ inverseJoinColumns = @JoinColumn(name="role_id"))
 private Set<Role> roles = new HashSet<>();
 
 
-public Utilisateur(String nom, String prenom, String username,String email, String password, String telephone){
+public Utilisateur(String nom, String prenom,String email, String password, String telephone){
 this.nom = nom;
 this.prenom = prenom;
 this.email = email;
 this.password = password;
 this.telephone = telephone;
-this.username = username;
+
 }
 }

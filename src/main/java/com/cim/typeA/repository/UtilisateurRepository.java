@@ -5,6 +5,7 @@
 package com.cim.typeA.repository;
 
 import com.cim.typeA.model.Utilisateur;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long>{
     Utilisateur findByEmail(String email);
 Utilisateur findByTelephone(String telephone);
-
 Boolean existsByEmail(String email);
-//Boolean existsByUsername(String username);
 
 
 }
