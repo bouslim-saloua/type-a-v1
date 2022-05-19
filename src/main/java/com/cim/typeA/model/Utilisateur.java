@@ -33,7 +33,7 @@ private String nom;
 @NotNull
 private String prenom;
 
-
+private String username;
 @Email
 @NotNull
 private String email;
@@ -49,10 +49,12 @@ inverseJoinColumns = @JoinColumn(name="role_id"))
 private Set<Role> roles = new HashSet<>();
 
 
-public Utilisateur(String nom, String prenom, String email, String password){
+public Utilisateur(String nom, String prenom, String username,String email, String password, String telephone){
 this.nom = nom;
 this.prenom = prenom;
 this.email = email;
 this.password = password;
+this.telephone = telephone;
+this.username = username;
 }
 }
