@@ -42,7 +42,7 @@ Long countAllInProgress();
 //ResponseEntity<byte[]> getReport(Long idManifestation) ;
 //void getReport(Long id) throws JRException, SQLException;
 void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException;
- List<Manifestation> findAllByDateCreation();
+// List<Manifestation> findAllByDateCreation();
 //String generateReport(Long idManifestation);
 //JasperPrint exportPdfFile(Long idManifestation) throws SQLException, JRException, IOException;
 //void exportPdfFile(HttpServletResponse response, Long idManifestation) throws SQLException, JRException, IOException;

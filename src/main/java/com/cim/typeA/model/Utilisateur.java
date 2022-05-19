@@ -6,18 +6,21 @@ package com.cim.typeA.model;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  *
  * @author HP
  */
 @Data
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Entity
 public class Utilisateur implements Serializable{
@@ -25,18 +28,31 @@ public class Utilisateur implements Serializable{
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
 
-@NotNull(message="le nom ne doit pas etre vide")
+@NotNull
 private String nom;
-@NotNull(message="Le prenom ne doit pas etre vide")
+@NotNull
 private String prenom;
 
+
 @Email
-@NotNull(message="L'email ne doit pas être vide")
+@NotNull
 private String email;
 
-@NotNull(message="Le mot de passe ne doit pas être vide")
+@NotNull
 private String password;
-@NotNull(message="Le téléphone ne doit pas être vide")
+@NotNull
 private String telephone;
 
+@ManyToMany(fetch = FetchType.LAZY)
+@JoinTable(name="user_roles", joinColumns = @JoinColumn(name="utilisateur_id"),
+inverseJoinColumns = @JoinColumn(name="role_id"))
+private Set<Role> roles = new HashSet<>();
+
+
+public Utilisateur(String nom, String prenom, String email, String password){
+this.nom = nom;
+this.prenom = prenom;
+this.email = email;
+this.password = password;
+}
 }

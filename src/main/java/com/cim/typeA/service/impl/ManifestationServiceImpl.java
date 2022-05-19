@@ -158,11 +158,11 @@ return id;
 
 }
 
-@Override
+/*@Override
 public List<Manifestation> findAllByDateCreation(){
 return manifestationRepository.findAllByDateCreation();
 }
-
+*/
 
 @Override
 public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException {

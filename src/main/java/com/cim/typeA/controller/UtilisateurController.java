@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("Cette end-point permet de gerer les utilisateurs")
 @RestController
 @RequestMapping("api/utilisateur")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class UtilisateurController {
 
 final UtilisateurService utilisateurService;

@@ -143,8 +143,8 @@ OutputStream out = response.getOutputStream();
 manifestationService.exportPdfFile(id, out);
 }
 
-@GetMapping("/History")
+/*@GetMapping("/History")
 public ResponseEntity<?> findAllByDateCreation(){
 return ResponseEntity.ok().body(manifestationService.findAllByDateCreation());
-}
+}*/
 }
