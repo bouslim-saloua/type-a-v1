@@ -4,6 +4,7 @@
  */
 package com.cim.typeA.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 
 public class CustomUtilisateurDetails implements UserDetails{
+@JsonIgnore
      private final Utilisateur utilisateur;
 
 public CustomUtilisateurDetails(Utilisateur utilisateur){
