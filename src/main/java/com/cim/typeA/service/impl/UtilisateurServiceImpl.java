@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import com.cim.typeA.repository.UtilisateurRepository;
 import com.cim.typeA.service.UtilisateurService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -69,7 +70,7 @@ public Utilisateur save(UtilisateurPostDto utilisateurPostDto) throws Exception{
 
 Utilisateur utilisateurById = utilisateurRepository.findById(utilisateurPostDto.getId()).orElse(null);
 
-Utilisateur utilisateurByEmail = utilisateurRepository.findByEmail(utilisateurPostDto.getEmail());
+Optional<Utilisateur> utilisateurByEmail = utilisateurRepository.findByEmail(utilisateurPostDto.getEmail());
 
 Utilisateur utilisateurByTelephone = utilisateurRepository.findByTelephone(utilisateurPostDto.getTelephone());
 if(utilisateurById != null || utilisateurByEmail != null || utilisateurByTelephone != null) throw new Exception("User already exists");
@@ -88,11 +89,11 @@ return utilisateurRepository.save(utilisateurPostConverter.convertToDM(utilisate
 
 }
 
-@Override
-public UtilisateurGetDto findByEmail(String email){
+/*@Override
+public Optional<UtilisateurGetDto >findByEmail(String email){
 return utilisateurGetDtoConverter.convertToDTO(utilisateurRepository.findByEmail(email));
 }
-
+*/
 @Override
 public UtilisateurGetDto findByTelephone(String telephone){
 return utilisateurGetDtoConverter.convertToDTO(utilisateurRepository.findByTelephone(telephone));}
@@ -112,9 +113,10 @@ return id;
 }
 
 //POST
-@Override
+/*@Override
 public UtilisateurGetDto signIn(UtilisateurPostDto utilisateurPostDto) throws Exception{
-Utilisateur utilisateurFromDB = utilisateurRepository.findByEmail(utilisateurPostDto.getEmail());
+    Optional<Utilisateur> utilisateurFromDB = utilisateurRepository.findByEmail(utilisateurPostDto.getEmail());
+
 if(utilisateurFromDB == null) throw new Exception("User Not  found");
 
 else if(!(utilisateurFromDB.getPassword()).equals(utilisateurPostDto.getPassword())) throw new Exception("Passwords don't match !!");
@@ -122,7 +124,7 @@ else if(!(utilisateurFromDB.getPassword()).equals(utilisateurPostDto.getPassword
 
 //Mais normalement je ne dois pas retourner l'objet utilisateur mais je dois retouner son dto
 else return utilisateurGetDtoConverter.convertToDTO(utilisateurFromDB);
-}
+}*/
 
 //POST
 @Override

@@ -7,6 +7,7 @@ package com.cim.typeA.model;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -20,8 +21,6 @@ import lombok.NoArgsConstructor;
  * @author HP
  */
 @Data
-
-@NoArgsConstructor
 @Entity
 public class Utilisateur implements Serializable{
     @Id
@@ -42,18 +41,22 @@ private String password;
 @NotNull
 private String telephone;
 
-@ManyToMany(fetch = FetchType.LAZY)
-@JoinTable(name="user_roles", joinColumns = @JoinColumn(name="utilisateur_id"),
-inverseJoinColumns = @JoinColumn(name="role_id"))
-private Set<Role> roles = new HashSet<>();
+@Enumerated(EnumType.STRING)
+private EncryptionAlgorithm algorithm;
+
+@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
+private List<Authority> authorities;
 
 
-public Utilisateur(String nom, String prenom,String email, String password, String telephone){
+
+/*public Utilisateur(String nom, String prenom,String email, String password, String telephone){
 this.nom = nom;
 this.prenom = prenom;
 this.email = email;
 this.password = password;
 this.telephone = telephone;
+}*/
+//Constructeur par defaut
 
-}
+
 }

@@ -70,10 +70,10 @@ public ResponseEntity<List<UtilisateurGetDto>> findAll(){
 return ResponseEntity.ok().body(utilisateurService.findAll());
 }
 
-@GetMapping("/email/{email}")
+/*@GetMapping("/email/{email}")
 public ResponseEntity<?> findByEmail(@PathVariable String email){
 return ResponseEntity.ok().body(utilisateurService.findByEmail(email));
-}
+}*/
 
 @GetMapping("/telephone/{telephone}")
 public ResponseEntity<?> findByTelehone(@PathVariable String telephone){
@@ -85,10 +85,10 @@ public ResponseEntity<?> signUp(@Valid @RequestBody UtilisateurPostDto utilisate
 return ResponseEntity.ok().body(utilisateurService.signUp(utilisateurPostDto));
 }
 
-@PostMapping("/signIn/")
+/*@PostMapping("/signIn/")
 public ResponseEntity<?> singIn(@Valid @RequestBody UtilisateurPostDto utilisateurPostDto) throws Exception{
 return ResponseEntity.ok().body(utilisateurService.signIn(utilisateurPostDto));
-}
+}*/
     
 
 }

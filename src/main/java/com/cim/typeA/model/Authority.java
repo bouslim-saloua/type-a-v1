@@ -4,29 +4,28 @@
  */
 package com.cim.typeA.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
  *
  * @author USER
  */
-@Entity
 @Data
-public class Role {
-    @Id
+@Entity
+public class Authority {
+@Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
-private Long id;
-@Enumerated(EnumType.STRING)
-@Column(length = 20)
-private ERole name;
+private Long id; 
+private String name;
 
-
-
+@JoinColumn(name = "utilisateur")
+@ManyToOne
+private Utilisateur utilisateur;
+    
 }

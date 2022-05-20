@@ -7,6 +7,7 @@ package com.cim.typeA.model;
 //import lombok.Data;
 
 import javax.persistence.Entity;
+import lombok.Data;
 
 
 
@@ -16,9 +17,9 @@ import javax.persistence.Entity;
  * @author HP
  */
 
-
-//@Data
+@Data
 @Entity
 public class Administrateur extends Utilisateur{
-  //  private String att;
+
+
 }

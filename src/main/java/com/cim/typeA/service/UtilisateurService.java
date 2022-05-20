@@ -19,9 +19,9 @@ public interface UtilisateurService {
 
 Utilisateur save(UtilisateurPostDto utilisateurPostDto) throws Exception;
 Utilisateur update(UtilisateurPostDto utilisateurPostDto) throws Exception;
-UtilisateurGetDto findByEmail(String email);
+//UtilisateurGetDto findByEmail(String email);
 Long delete(Long id) throws Exception;
-    UtilisateurGetDto signIn(UtilisateurPostDto utilisateurPostDto) throws Exception;
+  //  UtilisateurGetDto signIn(UtilisateurPostDto utilisateurPostDto) throws Exception;
 UtilisateurGetDto signUp(UtilisateurPostDto utilisateurPostDto) throws Exception;
 UtilisateurGetDto findByTelephone(String telephone);
     List<UtilisateurGetDto> findAll();
