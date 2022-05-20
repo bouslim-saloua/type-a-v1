@@ -8,7 +8,7 @@ package com.cim.typeA.model;
  *
  * @author USER
  */
-public enum EncryptionAlgorithm {
-    BCRYPT,
-SCRYPT
+public enum ERole {
+   ROLE_USER,
+    ROLE_ADMIN
 }

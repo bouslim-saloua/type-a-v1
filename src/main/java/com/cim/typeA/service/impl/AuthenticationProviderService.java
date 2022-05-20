@@ -6,6 +6,7 @@ package com.cim.typeA.service.impl;
 
 import com.cim.typeA.model.CustomUtilisateurDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,30 +21,29 @@ import org.springframework.stereotype.Service;
  *
  * @author USER
  */
-@RequiredArgsConstructor
+
 @Service
 public class AuthenticationProviderService implements AuthenticationProvider{
-    
-final JpaUtilisateurDetailsService utilisateurDetailsService;
-final BCryptPasswordEncoder bCryptPasswordEncoder;
-final SCryptPasswordEncoder sCryptPasswordEncoder;
+   @Autowired 
+ private JpaUtilisateurDetailsService utilisateurDetailsService;
+
+
+
+
 
 
 @Override
 public Authentication authenticate(Authentication authentication) throws AuthenticationException{
-
+BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 String username = authentication.getName();
 String password = authentication.getCredentials().toString();
 
     CustomUtilisateurDetails utilisateur = utilisateurDetailsService.loadUserByUsername(username);
-    switch (utilisateur.getUtilisateur().getAlgorithm()) {
-        case BCRYPT:
+    
             
             return checkPassword(utilisateur, password, bCryptPasswordEncoder);
-       case SCRYPT:
-            return checkPassword(utilisateur, password, sCryptPasswordEncoder);
-    }
-throw new BadCredentialsException("Bad credentials");
+      
+//throw new BadCredentialsException("Bad credentials");
 }
 
 

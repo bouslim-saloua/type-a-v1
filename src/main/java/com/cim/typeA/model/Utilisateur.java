@@ -41,8 +41,7 @@ private String password;
 @NotNull
 private String telephone;
 
-@Enumerated(EnumType.STRING)
-private EncryptionAlgorithm algorithm;
+
 
 @OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
 private List<Authority> authorities;
