@@ -8,6 +8,7 @@ package com.cim.typeA.model;
 
 import javax.persistence.Entity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 

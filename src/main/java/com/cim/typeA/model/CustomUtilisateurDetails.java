@@ -33,7 +33,7 @@ return utilisateur;
 
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities(){
-return utilisateur.getAuthorities().stream()
+return utilisateur.getRoles().stream()
 .map(a -> new SimpleGrantedAuthority(
 a.getName())).collect(Collectors.toList());
 }
@@ -41,6 +41,9 @@ a.getName())).collect(Collectors.toList());
 @Override
 public String getPassword(){
 return utilisateur.getPassword();
+}
+public Long getId(){
+return utilisateur.getId();
 }
 
 @Override

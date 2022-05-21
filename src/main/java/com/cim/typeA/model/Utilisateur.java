@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  *
  * @author HP
  */
-@Data
+
 @Entity
 public class Utilisateur implements Serializable{
     @Id
@@ -44,7 +44,7 @@ private String telephone;
 
 
 @OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
-private List<Authority> authorities;
+private Set<Role> roles;
 
 
 
@@ -55,7 +55,72 @@ this.email = email;
 this.password = password;
 this.telephone = telephone;
 }*/
-//Constructeur par defaut
+public Utilisateur( String email, String password) {
+		
+		this.email = email;
+		this.password = password;
+	}
+
+public Utilisateur(){
+}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+
 
 
 }

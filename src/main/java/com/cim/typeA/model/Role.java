@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-public class Authority {
+public class Role {
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id; 

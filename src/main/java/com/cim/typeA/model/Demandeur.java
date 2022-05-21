@@ -4,6 +4,7 @@
  */
 package com.cim.typeA.model;
 
+import groovy.transform.EqualsAndHashCode;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,6 +16,7 @@ import lombok.Data;
  */
 @Data
 @Entity
+//@EqualsAndHashCode(callSuper = false)
 public class Demandeur extends Utilisateur {
 @OneToMany(mappedBy="demandeur")
 private List<Manifestation> manifestations;

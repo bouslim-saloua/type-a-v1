@@ -4,9 +4,10 @@
  */
 package com.cim.typeA.repository;
 
+import com.cim.typeA.model.ERole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.cim.typeA.model.Authority;
+import com.cim.typeA.model.Role;
 import java.util.Optional;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Optional;
  */
 
 @Repository
-public interface AuthorityRepository extends JpaRepository<Authority, Long>{
+public interface RoleRepository extends JpaRepository<Role, Long>{
     
-    Optional<Authority> findByName(String name);
+    Optional<Role> findByName(ERole name);
 }
