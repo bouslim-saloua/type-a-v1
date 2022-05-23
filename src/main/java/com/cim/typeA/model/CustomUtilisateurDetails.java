@@ -6,6 +6,8 @@ package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,37 +20,80 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 
 public class CustomUtilisateurDetails implements UserDetails{
-@JsonIgnore
-     private final Utilisateur utilisateur;
-
-public CustomUtilisateurDetails(Utilisateur utilisateur){
+/*@JsonIgnore
+     private final Utilisateur utilisateur;*/
+private Collection<? extends GrantedAuthority> authorities;
+/*public CustomUtilisateurDetails(Utilisateur utilisateur){
 this.utilisateur = utilisateur;
 }
 
 public final Utilisateur getUtilisateur(){
 return utilisateur;
-}
+}*/
 
 //Omitted code
+private Long id;
+private String nom;
+private String prenom;
+private String email;
+@JsonIgnore
+private String password;
+private String telephone;
 
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities(){
-return utilisateur.getRoles().stream()
-.map(a -> new SimpleGrantedAuthority(
-a.getName())).collect(Collectors.toList());
+return this.authorities;
+}
+public CustomUtilisateurDetails(Long id,String nom, String prenom,String telephone, String email, String password,
+			Collection<? extends GrantedAuthority> authorities) {
+		
+		this.id = id;
+this.nom = nom; 
+this.prenom = prenom; 
+this.telephone  = telephone;
+		this.email = email;
+		this.password = password;
+		this.authorities = authorities;
+	}
+
+public static CustomUtilisateurDetails build(Utilisateur user) {
+		  List<GrantedAuthority> authorities = user.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+				.collect(Collectors.toList());
+		return new CustomUtilisateurDetails(
+				user.getId(), 
+				user.getNom(),
+user.getTelephone(),
+user.getPassword(),
+				user.getEmail(),
+				user.getPassword(), 
+				authorities);
+	}
+public String getNom(){
+return this.nom;
 }
 
+public String getPrenom(){
+return this.prenom;
+}
+
+public String getEmail(){
+return this.email;
+}
+public String getTelephone(){
+return this.telephone;
+}
 @Override
 public String getPassword(){
-return utilisateur.getPassword();
+return this.password;
 }
 public Long getId(){
-return utilisateur.getId();
+return this.id;
 }
 
 @Override
 public String getUsername(){
-return utilisateur.getEmail();
+return this.email;
 }
 
 @Override
@@ -71,4 +116,13 @@ public boolean isEnabled(){
 return true;
 }
 
+@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		CustomUtilisateurDetails user = (CustomUtilisateurDetails) o;
+		return Objects.equals(id, user.id);
+	}
 }

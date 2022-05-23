@@ -55,7 +55,7 @@ public class AuthentificationController {
 @PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
@@ -63,11 +63,9 @@ public class AuthentificationController {
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		return ResponseEntity.ok(new JwtResponse(jwt, 
-												 userDetails.getId(), 
-												 userDetails.getUsername(), 
-												 
-												 roles));
+//String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles
+		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(),
+userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(),roles));
 	}
 
 @PostMapping("/signup")
@@ -79,26 +77,26 @@ public class AuthentificationController {
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 		// Create new user's account
-		Utilisateur user = new Utilisateur( signUpRequest.getEmail(),
+		Utilisateur user = new Utilisateur( signUpRequest.getNom(), signUpRequest.getPrenom(),signUpRequest.getTelephone(), signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			Role userRole = roleRepository.findByName(ERole.ROLE_USER);
+					//.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {
 				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
+							//.orElseThrow() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
 					break;
 				
 				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					Role userRole = roleRepository.findByName(ERole.ROLE_USER);
+							//.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(userRole);
 				}
 			});

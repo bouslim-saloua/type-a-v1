@@ -27,24 +27,27 @@ public class Utilisateur implements Serializable{
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
 
-@NotNull
+//@NotNull
 private String nom;
-@NotNull
+//@NotNull
 private String prenom;
 
 @Email
-@NotNull
+//@NotNull
 private String email;
 
-@NotNull
+//@NotNull
 private String password;
-@NotNull
+//@NotNull
 private String telephone;
 
 
 
-@OneToMany(mappedBy="utilisateur", fetch = FetchType.EAGER)
-private Set<Role> roles;
+@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_roles", 
+				joinColumns = @JoinColumn(name = "utilisateur_id"), 
+				inverseJoinColumns = @JoinColumn(name = "role_id"))
+private Set<Role> roles = new HashSet<>();
 
 
 
@@ -63,6 +66,14 @@ public Utilisateur( String email, String password) {
 
 public Utilisateur(){
 }
+
+    public Utilisateur(String nom, String prenom, String telephone, String email, String password) {
+this.nom = nom;
+this.prenom = prenom;
+this.email = email;
+this.password = password;
+this.telephone = telephone;
+    }
 
     public Long getId() {
         return id;

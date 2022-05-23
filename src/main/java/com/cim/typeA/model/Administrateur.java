@@ -20,6 +20,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = false)
 public class Administrateur extends Utilisateur{
 
 

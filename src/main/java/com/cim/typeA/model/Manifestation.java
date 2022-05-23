@@ -23,36 +23,36 @@ public class Manifestation implements Serializable {
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
 
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateCreation;
 //intitulé de la manifestation
-@NotNull
+
 private String titreManifestation;
-@NotNull
+
 private String titreParticipation;
-@NotNull
+
 private String pays;
-@NotNull
+
 private String ville;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateDebut;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateFin;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateDepart;
 
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateRetour;
-@NotNull
+
 private String natureParticipation;
-@NotNull
+
 private String status;
-@NotNull
+
 private Boolean hasBenifitedTypeA;
 
 private int montantAnEnCours;

@@ -9,6 +9,7 @@ import com.cim.typeA.model.Utilisateur;
 import com.cim.typeA.repository.UtilisateurRepository;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,6 @@ public CustomUtilisateurDetails loadUserByUsername(String username){
     Supplier<UsernameNotFoundException> s = () -> new UsernameNotFoundException("Problem during authentication!");
 
 Utilisateur utilisateur = utilisateurRepository.findByEmail(username).orElseThrow(s);
-return new CustomUtilisateurDetails(utilisateur);
+return CustomUtilisateurDetails.build(utilisateur);
 }
 }

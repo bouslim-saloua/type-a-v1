@@ -29,7 +29,7 @@ private Boolean salarie;
 private int anneeThese;
 private String directeurThese;
 private String ced;
-@NotNull
+
 private String etablissement;
 private String departement;
 private String entiteRecherche;

@@ -7,7 +7,7 @@ package com.cim.typeA.model;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 /**
@@ -21,42 +21,42 @@ public class MissionStage implements Serializable{
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
 
-@NotNull
+//@
 @Temporal(TemporalType.DATE)
 private Date dateCreation; 
 //Intitulé mission ou stage
-@NotNull
+
 private String titre;
 
-@NotNull
+
 private String respoMarocain;
-@NotNull
+
 private String partenaireEtranger;
 
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateDebut;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateFin;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateDepart;
-@NotNull
+
 @Temporal(TemporalType.DATE)
 private Date dateRetour;
-@NotNull
+
 private Boolean hasCurrentTypeA;
-@NotNull
+
 private String cadreSoutien;
-@NotNull
+
 private String status;
 
-@NotNull
+
 private String pays;
-@NotNull
+
 private String ville;
-@NotNull
+
 private String objet;
 
 
