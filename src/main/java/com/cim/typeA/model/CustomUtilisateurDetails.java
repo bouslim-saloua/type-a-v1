@@ -43,8 +43,8 @@ private String telephone;
 @Override
 public Collection<? extends GrantedAuthority> getAuthorities(){
 return this.authorities;
-}
-public CustomUtilisateurDetails(Long id,String nom, String prenom,String telephone, String email, String password,
+}// public JwtResponse(String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles) {
+public CustomUtilisateurDetails(Long id,String email, String nom,String prenom, String telephone, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		
 		this.id = id;
@@ -62,10 +62,10 @@ public static CustomUtilisateurDetails build(Utilisateur user) {
 				.collect(Collectors.toList());
 		return new CustomUtilisateurDetails(
 				user.getId(), 
-				user.getNom(),
-user.getTelephone(),
-user.getPassword(),
 				user.getEmail(),
+user.getNom(),
+user.getPrenom(),
+				user.getTelephone(),
 				user.getPassword(), 
 				authorities);
 	}

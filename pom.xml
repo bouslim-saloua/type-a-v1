@@ -44,7 +44,7 @@
 <dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.0.0</version>
+			<version>6.19.1</version>
 		</dependency>
                 
                 <!-- https://mvnrepository.com/artifact/org.olap4j/olap4j -->

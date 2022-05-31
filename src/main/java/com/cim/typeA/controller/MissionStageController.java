@@ -4,18 +4,17 @@
  */
 package com.cim.typeA.controller;
 
-import com.cim.typeA.model.MissionStage;
+
 import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.service.MissionStageService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -64,18 +64,24 @@ public class AuthentificationController {
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 //String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles
-		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(),
+	// public JwtResponse(String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles) {	
+return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(),
 userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(),roles));
 	}
 
 @PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		
+		//Error when email is already in use
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
+
+            //Error when telephone is already in use!
+if(userRepository.existsByTelephone(signUpRequest.getTelephone())){
+return ResponseEntity.badRequest().body(new MessageResponse("Erorr: N° Telephone est déjà utilisé!"));
+}
 		// Create new user's account
 		Utilisateur user = new Utilisateur( signUpRequest.getNom(), signUpRequest.getPrenom(),signUpRequest.getTelephone(), signUpRequest.getEmail(),
 							 encoder.encode(signUpRequest.getPassword()));
