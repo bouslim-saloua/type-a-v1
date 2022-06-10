@@ -28,8 +28,10 @@ public List<Demandeur> findAllSortedByDateCreation(){
 return demandeurRepository.findAllSortedByDateCreation();
 }
 
-
-
+@Override
+public List<Demandeur> findAll(){
+return demandeurRepository.findAll();
+}
     
 
 }

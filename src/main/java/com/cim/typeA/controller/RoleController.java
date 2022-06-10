@@ -4,6 +4,7 @@
  */
 package com.cim.typeA.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author USER
  */
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {

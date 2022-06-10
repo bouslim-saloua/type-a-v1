@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author HP
  */
+
 @Api("Cette end-point permet de gerer les utilisateurs")
 @RestController
 @RequestMapping("api/utilisateur")
@@ -44,14 +45,14 @@ this.utilisateurPostConverter =utilisateurPostConverter;
 
 
 @PostMapping("/")
-public ResponseEntity<?> save(@Valid @RequestBody UtilisateurPostDto utilisateurPostDto) throws Exception {
+public ResponseEntity<?> save( @RequestBody UtilisateurPostDto utilisateurPostDto) throws Exception {
 if(utilisateurPostDto == null) 
 return ResponseEntity.badRequest().body("L'utilisateur fourni n'est pas valid");
  return ResponseEntity.status(HttpStatus.CREATED).body(utilisateurGetDtoConverter.convertToDTO(utilisateurService.save(utilisateurPostDto)));
 }
 
 @PutMapping("/")
-public ResponseEntity<?> update(@Valid @RequestBody UtilisateurPostDto utilisateurPostDto)throws Exception{
+public ResponseEntity<?> update( @RequestBody UtilisateurPostDto utilisateurPostDto)throws Exception{
 if(utilisateurPostDto == null) 
 return ResponseEntity.badRequest().body("L'utilisateur fourni n'est pas valid");
 return ResponseEntity.ok().body(utilisateurGetDtoConverter.convertToDTO(utilisateurService.update(utilisateurPostDto)));
@@ -81,7 +82,7 @@ return ResponseEntity.ok().body(utilisateurService.findByTelephone(telephone));
 }
 
 @PostMapping("/signUp/")
-public ResponseEntity<?> signUp(@Valid @RequestBody UtilisateurPostDto utilisateurPostDto) throws Exception{
+public ResponseEntity<?> signUp( @RequestBody UtilisateurPostDto utilisateurPostDto) throws Exception{
 return ResponseEntity.ok().body(utilisateurService.signUp(utilisateurPostDto));
 }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.cim.typeA.model.Manifestation;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -41,4 +42,7 @@ public Long countAllInProgress();
 
 /*@Query(value="SELECT m FROM Manifestation ORDER BY m.date_creation ASC")
 public List<Manifestation> findAllByDateCreation();*/
+
+@Query(value="SELECT * FROM Manifestation m WHERE m.utilisateur_id = :utilisateurId ", nativeQuery = true)
+public List<Manifestation> findAllByUtilisateurId(@Param("utilisateurId") Long utilisateurId);
 }

@@ -45,8 +45,8 @@ donnee_pro dp,
 soutien s
 WHERE
 s.manifestation_id = m.id 
-and m.demandeur = u.id
-and u.id = dp.demandeur
+and m.utilisateur_id = u.id
+and u.id = dp.utilisateur_id
 and m.id = $P{idManifestation}]]>
 	</queryString>
 	<field name="nom" class="java.lang.String">

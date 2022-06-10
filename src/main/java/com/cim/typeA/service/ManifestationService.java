@@ -46,4 +46,7 @@ void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JREx
 //String generateReport(Long idManifestation);
 //JasperPrint exportPdfFile(Long idManifestation) throws SQLException, JRException, IOException;
 //void exportPdfFile(HttpServletResponse response, Long idManifestation) throws SQLException, JRException, IOException;
+List<Manifestation> findAllByUtilisateurId(Long utilisateurId);
+
+Manifestation addManifestation(Manifestation manifestation);
 }

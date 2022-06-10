@@ -4,9 +4,12 @@
  */
 package com.cim.typeA.model;
 
-import groovy.transform.EqualsAndHashCode;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+
 import javax.persistence.OneToMany;
 import lombok.Data;
 
@@ -18,13 +21,24 @@ import lombok.Data;
 @Entity
 //@EqualsAndHashCode(callSuper = false)
 public class Demandeur extends Utilisateur {
-@OneToMany(mappedBy="demandeur")
+
+@JsonManagedReference
+@OneToMany(mappedBy="demandeur", cascade = CascadeType.ALL)
 private List<Manifestation> manifestations;
 
-@OneToMany(mappedBy="demandeur")
+@JsonManagedReference
+@OneToMany(mappedBy="demandeur", cascade=CascadeType.ALL)
 private List<MissionStage> missions;
 
-@OneToMany(mappedBy="demandeur")
+@JsonManagedReference
+@OneToMany(mappedBy="demandeur", cascade=CascadeType.ALL)
 private List<DonneePro> donneePros;
 
+    public Demandeur(String nom, String prenom, String telephone, String email, String encode) {
+       super(nom, prenom, telephone, email, encode);
+    }
+
+//Constructeur Par defaut
+public Demandeur(){
+}
 }

@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author HP
  */
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("api/manifestation")
 @AllArgsConstructor
@@ -39,14 +41,14 @@ public class ManifestationController {
 final ManifestationService manifestationService;
 
 
-@PostMapping("/")
-public ResponseEntity<?> save(@Valid @RequestBody Manifestation manifestation) throws Exception{
+@PostMapping("/enregistrer")
+public ResponseEntity<?> save( @RequestBody Manifestation manifestation) throws Exception{
 if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
 return ResponseEntity.status(HttpStatus.CREATED).body(manifestationService.save(manifestation));
 }
 
 @PutMapping("/update")
-public ResponseEntity<?> update(@Valid @RequestBody Manifestation manifestation) throws Exception{
+public ResponseEntity<?> update( @RequestBody Manifestation manifestation) throws Exception{
 if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
 return ResponseEntity.ok().body(manifestationService.update(manifestation));
 }
@@ -54,13 +56,13 @@ return ResponseEntity.ok().body(manifestationService.update(manifestation));
 
 //update
 @PutMapping("/valider")
-public ResponseEntity<?> valider(@Valid @RequestBody Manifestation manifestation) throws Exception{
+public ResponseEntity<?> valider( @RequestBody Manifestation manifestation) throws Exception{
 if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
 return ResponseEntity.ok().body(manifestationService.valider(manifestation));
 }
 
 @PutMapping("/refuser")
-public ResponseEntity<?> refuser(@Valid @RequestBody Manifestation manifestation) throws Exception{
+public ResponseEntity<?> refuser( @RequestBody Manifestation manifestation) throws Exception{
 if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
 return ResponseEntity.ok().body(manifestationService.refuser(manifestation));
 }
@@ -147,4 +149,9 @@ manifestationService.exportPdfFile(id, out);
 public ResponseEntity<?> findAllByDateCreation(){
 return ResponseEntity.ok().body(manifestationService.findAllByDateCreation());
 }*/
+
+@GetMapping("/manifestationsByUser/{utilisateurId}")
+public List<Manifestation> findAllByUtilisateurId(@PathVariable Long utilisateurId){
+return manifestationService.findAllByUtilisateurId(utilisateurId);
+}
 }

@@ -169,4 +169,15 @@ public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLExceptio
  JasperPrint jasperPrint =  manifestationRepositoryImpl.exportPdfFile(id);
 JasperExportManager.exportReportToPdfStream(jasperPrint, outPutStream);
 }
+
+@Override
+public List<Manifestation> findAllByUtilisateurId(Long utilisateurId){
+return manifestationRepository.findAllByUtilisateurId(utilisateurId);
+}
+
+@Override
+public Manifestation addManifestation(Manifestation manifestation){
+return null;
+}
+
 }

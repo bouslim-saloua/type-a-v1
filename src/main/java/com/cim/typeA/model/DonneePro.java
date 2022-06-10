@@ -4,14 +4,20 @@
  */
 package com.cim.typeA.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  *
@@ -36,7 +42,10 @@ private String entiteRecherche;
 //responsable de l'entité de recherche
 private String respoEntite;
 
-@ManyToOne
+@JsonBackReference
+@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+ @JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
+@NotFound(action = NotFoundAction.IGNORE)
 private Demandeur demandeur;
 
 }

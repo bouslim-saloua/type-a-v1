@@ -4,11 +4,14 @@
  */
 package com.cim.typeA.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 /**
  *
@@ -60,11 +63,11 @@ private String ville;
 private String objet;
 
 
-@ManyToOne
+@JsonBackReference
+@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+@JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
+@NotFound(action = NotFoundAction.IGNORE)
 private Demandeur demandeur;
 
- @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "missionStage")
-    private Soutien soutien;
+ 
 }

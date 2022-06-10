@@ -4,8 +4,12 @@
  */
 package com.cim.typeA.controller;
 
+import com.cim.typeA.model.DonneePro;
+import com.cim.typeA.model.Manifestation;
+import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.model.Soutien;
 import com.cim.typeA.model.Soutien;
+import com.cim.typeA.model.Utilisateur;
 import com.cim.typeA.service.SoutienService;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -14,6 +18,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author HP
  */
 
-
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("api/soutien")
 @AllArgsConstructor
@@ -36,14 +41,14 @@ public class SoutienController {
 
 final SoutienService soutienService;
 
-@PostMapping("/")
-public ResponseEntity<?> save(@Valid @RequestBody Soutien soutien) throws Exception{
+@PostMapping("/save")
+public ResponseEntity<?> save(@RequestBody Soutien soutien) throws Exception{
 if(soutien == null) return ResponseEntity.badRequest().body("La soutien fourni n'est pas valide");
 return ResponseEntity.status(HttpStatus.CREATED).body(soutienService.save(soutien));
 }
 
 @PutMapping("/update")
-public ResponseEntity<?> update(@Valid @RequestBody Soutien soutien) throws Exception{
+public ResponseEntity<?> update( @RequestBody Soutien soutien) throws Exception{
 if(soutien == null) return ResponseEntity.badRequest().body("La soutien fourni n'est pas valide");
 return ResponseEntity.ok().body(soutienService.update(soutien));
 }
@@ -61,7 +66,7 @@ return ResponseEntity.ok().body("La soutien [ " + soutienService.delete(id) +" e
 }
 
 @GetMapping("/cTotal")
-public ResponseEntity<?> calculerTotal(@Valid @RequestBody Soutien soutien) throws Exception{
+public ResponseEntity<?> calculerTotal( @RequestBody Soutien soutien) throws Exception{
 if(soutien == null) return ResponseEntity.badRequest().body("La soutien fourni n'est pas valide");
 return ResponseEntity.ok().body(soutienService.calculerTotal(soutien));
 }
@@ -69,5 +74,15 @@ return ResponseEntity.ok().body(soutienService.calculerTotal(soutien));
 @GetMapping("/sommeTotal")
 public ResponseEntity<?> findSumTotalSoutien(){
 return ResponseEntity.ok().body(soutienService.findSumTotalSoutien());
+}
+
+@PostMapping("/saveSoutienManifest")
+public ResponseEntity<?> addSoutienManifestation(@RequestBody Utilisateur utilisateur, @RequestBody DonneePro donneePro, @RequestBody Manifestation manifestation, @RequestBody Soutien soutien){
+return ResponseEntity.ok().body(soutienService.addSoutienManifestation(utilisateur, donneePro, manifestation, soutien)); 
+}
+
+@PostMapping("/saveSoutienManifestMission")
+public ResponseEntity<?> addSoutienMission(@RequestBody Utilisateur utilisateur, @RequestBody DonneePro donneePro, @RequestBody MissionStage missionStage, @RequestBody Soutien soutien){
+return ResponseEntity.ok().body(soutienService.addSoutienMission(utilisateur, donneePro, missionStage, soutien)); 
 }
 }

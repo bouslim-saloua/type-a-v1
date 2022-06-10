@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author HP
  */
-
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("api/mission")
 @AllArgsConstructor
@@ -41,13 +42,13 @@ final MissionStageService missionStageService;
 
 
 @PostMapping("/")
-public ResponseEntity<?> save(@Valid @RequestBody MissionStage missionStage) throws Exception{
+public ResponseEntity<?> save( @RequestBody MissionStage missionStage) throws Exception{
 if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
 return ResponseEntity.status(HttpStatus.CREATED).body(missionStageService.save(missionStage));
 }
 
 @PutMapping("/update")
-public ResponseEntity<?> update(@Valid @RequestBody MissionStage missionStage) throws Exception{
+public ResponseEntity<?> update( @RequestBody MissionStage missionStage) throws Exception{
 if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
 return ResponseEntity.ok().body(missionStageService.update(missionStage));
 }
@@ -55,13 +56,13 @@ return ResponseEntity.ok().body(missionStageService.update(missionStage));
 
 //update
 @PutMapping("/valider")
-public ResponseEntity<?> valider(@Valid @RequestBody MissionStage missionStage) throws Exception{
+public ResponseEntity<?> valider( @RequestBody MissionStage missionStage) throws Exception{
 if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
 return ResponseEntity.ok().body(missionStageService.valider(missionStage));
 }
 
 @PutMapping("/refuser")
-public ResponseEntity<?> refuser(@Valid @RequestBody MissionStage missionStage) throws Exception{
+public ResponseEntity<?> refuser( @RequestBody MissionStage missionStage) throws Exception{
 if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
 return ResponseEntity.ok().body(missionStageService.refuser(missionStage));
 }

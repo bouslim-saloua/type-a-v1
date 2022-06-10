@@ -4,10 +4,13 @@
  */
 package com.cim.typeA.service;
 
+import com.cim.typeA.model.Demandeur;
+import java.util.List;
+
 /**
  *
  * @author HP
  */
 public interface DemandeurService {
-    
+    List<Demandeur> findAll(); 
 }

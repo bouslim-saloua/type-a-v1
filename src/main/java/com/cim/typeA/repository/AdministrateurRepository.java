@@ -4,25 +4,16 @@
  */
 package com.cim.typeA.repository;
 
+import com.cim.typeA.model.Administrateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cim.typeA.model.Demandeur;
-import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 /**
  *
- * @author HP
+ * @author USER
  */
-
 @Repository
-public interface DemandeurRepository extends JpaRepository<Demandeur, Long>{
-    
-@Query(value = "SELECT d FROM Demandeur d ORDER BY dateCreation Asc")
-public List<Demandeur> findAllSortedByDateCreation();
-
-//Verification
-Boolean existsByEmail(String email);
+public interface AdministrateurRepository extends JpaRepository<Administrateur, Long>{
+    Boolean existsByEmail(String email);
 Boolean existsByTelephone(String telephone);
-
 }

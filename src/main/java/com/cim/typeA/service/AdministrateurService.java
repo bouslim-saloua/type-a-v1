@@ -4,17 +4,10 @@
  */
 package com.cim.typeA.service;
 
-import com.cim.typeA.model.ERole;
-import com.cim.typeA.model.Role;
-import java.util.Optional;
-
 /**
  *
  * @author USER
  */
-public interface RoleService {
-     //Optional<Role> findByName(ERole name);
-Role findByName(ERole name);
-Role save(Role role);
-
+public interface AdministrateurService {
+    
 }

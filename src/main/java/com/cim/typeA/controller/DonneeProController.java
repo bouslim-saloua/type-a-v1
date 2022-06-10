@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author HP
  */
 
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("api/donneePro")
 @AllArgsConstructor
@@ -35,14 +37,14 @@ public class DonneeProController {
 final DonneeProService donneeProService;
 
 
-@PostMapping("/")
-public ResponseEntity<?> save(@Valid @RequestBody DonneePro donneePro) throws Exception{
+@PostMapping("/save")
+public ResponseEntity<?> save(@RequestBody DonneePro donneePro) throws Exception{
 if(donneePro == null) return ResponseEntity.badRequest().body("La donneePro fourni n'est pas valide");
 return ResponseEntity.status(HttpStatus.CREATED).body(donneeProService.save(donneePro));
 }
 
 @PutMapping("/update")
-public ResponseEntity<?> update(@Valid @RequestBody DonneePro donneePro) throws Exception{
+public ResponseEntity<?> update(@RequestBody DonneePro donneePro) throws Exception{
 if(donneePro == null) return ResponseEntity.badRequest().body("La donneePro fourni n'est pas valide");
 return ResponseEntity.ok().body(donneeProService.update(donneePro));
 }
