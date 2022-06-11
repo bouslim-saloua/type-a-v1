@@ -4,11 +4,11 @@
  */
 package com.cim.typeA.model;
 
+
 import java.io.Serializable;
 import javax.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+
 
 /**
  *
@@ -27,13 +27,11 @@ private int mHebergement;
 private int mAutre;
 private int mTotal;
 
-@OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "manifestation_id", referencedColumnName = "id")
-@NotFound(action = NotFoundAction.IGNORE)
+@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "manifestation_id", nullable = false)
     private Manifestation manifestation;
 
- @OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "mission_stage_id", referencedColumnName = "id")
-@NotFound(action = NotFoundAction.IGNORE)
+@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mission_id", nullable = false)
     private MissionStage missionStage;
 }

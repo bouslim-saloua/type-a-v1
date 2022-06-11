@@ -20,8 +20,22 @@ public class DemandeurServiceImpl implements DemandeurService{
     @Autowired
 private DemandeurRepository demandeurRepository;
 
-public void save(Demandeur demandeur){
-demandeurRepository.save(demandeur);
+public Demandeur save(Demandeur demandeur){
+//for manifestation:
+demandeur.getManifestations().forEach((manifestation) ->{
+manifestation.setDemandeur(demandeur);
+});
+
+//for MissionStage
+demandeur.getMissions().forEach((missionStage) -> {
+missionStage.setDemandeur(demandeur);
+});
+
+//for DonneePro
+demandeur.getDonneePros().forEach((donneePro) ->{
+donneePro.setDemandeur(demandeur);
+});
+return demandeurRepository.save(demandeur);
 }
 
 public List<Demandeur> findAllSortedByDateCreation(){

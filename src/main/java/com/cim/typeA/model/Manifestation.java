@@ -5,6 +5,7 @@
 package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -63,14 +66,14 @@ private int montantAnEnCours;
 //montant année précédente
 private int montantAnPrd;
 
-@JsonBackReference
-@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-@JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
-@NotFound(action = NotFoundAction.IGNORE)
+@ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "utilisateur_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
 private Demandeur demandeur;
 
- /*@OneToOne(fetch = FetchType.LAZY,
+ @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "manifestation")
-    private Soutien soutien;*/
+    private Soutien soutien;
 }

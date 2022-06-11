@@ -34,6 +34,7 @@ public class MissionStageServiceImpl implements MissionStageService{
 public MissionStage save(MissionStage missionStage) throws Exception{
 MissionStage missionStageFromDB = missionStageRepository.findById(missionStage.getId()).orElse(null);
 if(missionStageFromDB != null) throw new Exception("MissionStage already exists");
+missionStage.setDemandeur(missionStage.getDemandeur());
 return missionStageRepository.save(missionStage);
 }
 

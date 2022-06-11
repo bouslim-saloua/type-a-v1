@@ -34,6 +34,8 @@ final SoutienRepository soutienRepository;
 Soutien soutienFromDB = soutienRepository.findById(soutien.getId()).orElse(null);
 if(soutienFromDB != null) throw new Exception("Soutien already exists");
 //soutien.setMTotal(mTotal);
+soutien.setManifestation(soutien.getManifestation());
+soutien.setMissionStage(soutien.getMissionStage());
 return soutienRepository.save(soutien);
 
 }

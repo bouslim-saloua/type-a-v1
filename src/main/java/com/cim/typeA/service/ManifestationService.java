@@ -48,5 +48,5 @@ void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JREx
 //void exportPdfFile(HttpServletResponse response, Long idManifestation) throws SQLException, JRException, IOException;
 List<Manifestation> findAllByUtilisateurId(Long utilisateurId);
 
-Manifestation addManifestation(Manifestation manifestation);
+
 }

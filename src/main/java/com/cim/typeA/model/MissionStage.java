@@ -5,6 +5,7 @@
 package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -12,6 +13,8 @@ import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -63,11 +66,16 @@ private String ville;
 private String objet;
 
 
-@JsonBackReference
-@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-@JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
-@NotFound(action = NotFoundAction.IGNORE)
+@ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "utilisateur_id", nullable = false)
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  @JsonIgnore
 private Demandeur demandeur;
+
+ @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "missionStage")
+    private Soutien soutien;
 
  
 }

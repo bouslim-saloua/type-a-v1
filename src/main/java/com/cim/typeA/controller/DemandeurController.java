@@ -33,7 +33,10 @@ public List<Demandeur> findAll(){
 return demandeurService.findAll();
 }
 
-
+@PostMapping("/addDemandeur")
+public Demandeur save(@RequestBody Demandeur demandeur){
+return demandeurService.save(demandeur);
+}
 
 
    

@@ -76,6 +76,7 @@ private ResourceLoader resourceLoader;
 public Manifestation save(Manifestation manifestation) throws Exception{
 Manifestation manifestationFromDB = manifestationRepository.findById(manifestation.getId()).orElse(null);
 if(manifestationFromDB != null) throw new Exception("Manifestation already exists");
+manifestation.setDemandeur(manifestation.getDemandeur());
 return manifestationRepository.save(manifestation);
 }
 
@@ -175,9 +176,7 @@ public List<Manifestation> findAllByUtilisateurId(Long utilisateurId){
 return manifestationRepository.findAllByUtilisateurId(utilisateurId);
 }
 
-@Override
-public Manifestation addManifestation(Manifestation manifestation){
-return null;
-}
+
+
 
 }
