@@ -76,13 +76,5 @@ public ResponseEntity<?> findSumTotalSoutien(){
 return ResponseEntity.ok().body(soutienService.findSumTotalSoutien());
 }
 
-@PostMapping("/saveSoutienManifest")
-public ResponseEntity<?> addSoutienManifestation(@RequestBody Utilisateur utilisateur, @RequestBody DonneePro donneePro, @RequestBody Manifestation manifestation, @RequestBody Soutien soutien){
-return ResponseEntity.ok().body(soutienService.addSoutienManifestation(utilisateur, donneePro, manifestation, soutien)); 
-}
 
-@PostMapping("/saveSoutienManifestMission")
-public ResponseEntity<?> addSoutienMission(@RequestBody Utilisateur utilisateur, @RequestBody DonneePro donneePro, @RequestBody MissionStage missionStage, @RequestBody Soutien soutien){
-return ResponseEntity.ok().body(soutienService.addSoutienMission(utilisateur, donneePro, missionStage, soutien)); 
-}
 }

@@ -6,46 +6,37 @@ package com.cim.typeA.service.impl;
 
 
 
-import com.cim.typeA.config.WebConfig;
+import com.cim.typeA.model.Demandeur;
+import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.Manifestation;
+import com.cim.typeA.model.Soutien;
+import com.cim.typeA.repository.DemandeurRepository;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 
-import net.sf.jasperreports.engine.JasperCompileManager;
 
-import net.sf.jasperreports.engine.JasperFillManager;
+
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 
 import org.springframework.stereotype.Service;
 
 import com.cim.typeA.repository.ManifestationRepository;
+import com.cim.typeA.repository.UtilisateurRepository;
 import com.cim.typeA.repository.impl.ManifestationRepositoryImpl;
 import com.cim.typeA.service.ManifestationService;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 import java.sql.SQLException;
-import javax.servlet.http.HttpServletResponse;
 
 
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.util.JRSaver;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
+import org.omg.SendingContext.RunTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,11 +56,14 @@ public class ManifestationServiceImpl implements ManifestationService {
 
 final ManifestationRepositoryImpl manifestationRepositoryImpl;
 final ManifestationRepository manifestationRepository;
+final UtilisateurRepository utilisateurRepository;
+final DemandeurRepository demandeurRepository;
 @Qualifier("jdbcTemplate")
 private JdbcTemplate jdbcTemplate;
 
 @Autowired
 private ResourceLoader resourceLoader;
+
 
 
 @Override
@@ -176,7 +170,33 @@ public List<Manifestation> findAllByUtilisateurId(Long utilisateurId){
 return manifestationRepository.findAllByUtilisateurId(utilisateurId);
 }
 
+@Override
+public Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception{
+    Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
+if(demandeur == null) throw new Exception("User doesn't exist");
 
+//***Demandeur foreign keys
+//for manifestation:
+demandeur.getManifestations().forEach((manifest) ->{
+manifest.setDemandeur(demandeur);
+});
+//for MissionStage
+demandeur.getMissions().forEach((missionStage) -> {
+missionStage.setDemandeur(demandeur);
+});
+//for DonneePro
+demandeur.getDonneePros().forEach((donneeP) ->{
+donneeP.setDemandeur(demandeur);
+});
+donneePro.setDemandeur(demandeur);
 
+manifestation.setDemandeur(demandeur);
 
+manifestation.setSoutien(soutien);
+
+soutien.setManifestation(manifestation);
+
+return manifestationRepository.save(manifestation);
+
+}
 }

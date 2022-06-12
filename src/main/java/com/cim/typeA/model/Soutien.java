@@ -28,10 +28,10 @@ private int mAutre;
 private int mTotal;
 
 @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "manifestation_id", nullable = false)
+    @JoinColumn(name = "manifestation_id", nullable = true)
     private Manifestation manifestation;
 
 @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "mission_id", nullable = false)
+    @JoinColumn(name = "mission_id", nullable = true)
     private MissionStage missionStage;
 }

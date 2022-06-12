@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
+import com.cim.typeA.model.*;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -48,5 +49,6 @@ void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JREx
 //void exportPdfFile(HttpServletResponse response, Long idManifestation) throws SQLException, JRException, IOException;
 List<Manifestation> findAllByUtilisateurId(Long utilisateurId);
 
+Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception;
 
 }

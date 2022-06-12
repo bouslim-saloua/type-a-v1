@@ -4,7 +4,14 @@
  */
 package com.cim.typeA.controller;
 
+import com.cim.typeA.exception.ResourceNotFoundException;
+import com.cim.typeA.model.Demandeur;
+import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.Manifestation;
+import com.cim.typeA.model.Soutien;
+import com.cim.typeA.payload.holder.ManifestationHolder;
+import com.cim.typeA.repository.DemandeurRepository;
+import com.cim.typeA.repository.ManifestationRepository;
 import com.cim.typeA.service.ManifestationService;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,7 +46,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ManifestationController {
 
 final ManifestationService manifestationService;
-
+final DemandeurRepository demandeurRepository;
+final ManifestationRepository manifestationRepository;
 
 @PostMapping("/enregistrer")
 public ResponseEntity<?> save( @RequestBody Manifestation manifestation) throws Exception{
@@ -154,4 +162,64 @@ return ResponseEntity.ok().body(manifestationService.findAllByDateCreation());
 public List<Manifestation> findAllByUtilisateurId(@PathVariable Long utilisateurId){
 return manifestationService.findAllByUtilisateurId(utilisateurId);
 }
+
+/*@PostMapping("/{userId}/{manifestation}")
+public ResponseEntity<?> addManifestation(@PathVariable Long userId, @RequestBody Manifestation manifestation){
+    //Utilisateur utilisateurById = utilisateurRepository.findById(utilisateurPostDto.getId()).orElse(null);
+
+Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
+manifestation.setDemandeur(demandeur);
+return manifestationRepository.save(manifestation);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
+
+}*/
+
+//another try
+@PostMapping("/{userId}/")
+public ResponseEntity<?> addManifestation(@PathVariable Long userId,  @RequestBody ManifestationHolder manifestationHolder) {
+//return ResponseEntity.ok().body(manifestationService.addManifestation(userId, donneePro, manifestation, soutien));
+
+/*
+Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
+if(demandeur == null) throw new Exception("User doesn't exist");
+
+//***Demandeur foreign keys
+//for manifestation:
+demandeur.getManifestations().forEach((manifest) ->{
+manifest.setDemandeur(demandeur);
+});
+//for MissionStage
+demandeur.getMissions().forEach((missionStage) -> {
+missionStage.setDemandeur(demandeur);
+});
+//for DonneePro
+demandeur.getDonneePros().forEach((donneeP) ->{
+donneeP.setDemandeur(demandeur);
+});
+donneePro.setDemandeur(demandeur);
+
+manifestation.setDemandeur(demandeur);
+
+manifestation.setSoutien(soutien);
+
+soutien.setManifestation(manifestation);
+
+return manifestationRepository.save(manifestation);
+
+*/
+Manifestation manifestation = manifestationHolder.getManifestation();
+DonneePro donneePro = manifestationHolder.getDonneePro();
+Soutien soutien = manifestationHolder.getSoutien();
+Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
+manifestation.setDemandeur(demandeur);
+donneePro.setDemandeur(demandeur);
+soutien.setManifestation(manifestation);
+manifestation.setSoutien(soutien);
+return manifestationRepository.save(manifestation);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
+}
+
+
 }

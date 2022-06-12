@@ -6,6 +6,7 @@ package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -46,7 +47,7 @@ private String entiteRecherche;
 private String respoEntite;
 
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "utilisateur_id", nullable = false)
+  @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
 private Demandeur demandeur;

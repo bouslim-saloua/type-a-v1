@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cim.typeA.repository.DemandeurRepository;
 import com.cim.typeA.service.DemandeurService;
+import java.util.Optional;
 
 /**
  *
@@ -25,12 +26,10 @@ public Demandeur save(Demandeur demandeur){
 demandeur.getManifestations().forEach((manifestation) ->{
 manifestation.setDemandeur(demandeur);
 });
-
 //for MissionStage
 demandeur.getMissions().forEach((missionStage) -> {
 missionStage.setDemandeur(demandeur);
 });
-
 //for DonneePro
 demandeur.getDonneePros().forEach((donneePro) ->{
 donneePro.setDemandeur(demandeur);
@@ -45,6 +44,10 @@ return demandeurRepository.findAllSortedByDateCreation();
 @Override
 public List<Demandeur> findAll(){
 return demandeurRepository.findAll();
+}
+@Override
+public Optional<Demandeur> findById(Long id){
+return demandeurRepository.findById(id);
 }
     
 

@@ -67,7 +67,7 @@ private String objet;
 
 
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "utilisateur_id", nullable = false)
+  @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
 private Demandeur demandeur;

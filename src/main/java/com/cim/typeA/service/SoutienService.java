@@ -22,9 +22,9 @@ int findSumTotalSoutien();
     List<Soutien> findAll();
 Long delete(Long id) throws Exception;
 
-Soutien addSoutienManifestation(Utilisateur utilisateur, DonneePro donneePro, Manifestation manifestation, Soutien soutien);
+/*Soutien addSoutienManifestation(Soutien soutien);
 
-Soutien addSoutienMission(Utilisateur utilisateur, DonneePro donneePro, MissionStage missionStage, Soutien soutien);
+Soutien addSoutienMission(Utilisateur utilisateur, DonneePro donneePro, MissionStage missionStage, Soutien soutien);*/
 
 
 }

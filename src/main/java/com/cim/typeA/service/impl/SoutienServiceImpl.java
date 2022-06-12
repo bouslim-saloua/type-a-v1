@@ -82,45 +82,6 @@ soutienRepository.delete(soutienFromDB);
 return id;
 }
 
-@Override
-public Soutien addSoutienManifestation(Utilisateur utilisateur, DonneePro donneePro, Manifestation manifestation, Soutien soutien){
-soutien.setManifestation(manifestation);
-Demandeur demandeur = donneePro.getDemandeur();
-demandeur.setNom(utilisateur.getNom());
-demandeur.setPrenom(utilisateur.getPrenom());
-demandeur.setId(utilisateur.getId());
-demandeur.setEmail(utilisateur.getEmail());
-demandeur.setRoles(utilisateur.getRoles());
-demandeur.setTelephone(utilisateur.getTelephone());
-demandeur.setPassword(utilisateur.getPassword());
-
-donneePro.setDemandeur(demandeur);
-manifestation.setDemandeur(demandeur);
-soutien.setManifestation(manifestation);
-soutien.setMissionStage(null);
-
-return soutienRepository.save(soutien);
-}
-
-@Override
-public Soutien addSoutienMission(Utilisateur utilisateur, DonneePro donneePro, MissionStage missionStage, Soutien soutien){
-soutien.setMissionStage(missionStage);
-Demandeur demandeur = donneePro.getDemandeur();
-demandeur.setNom(utilisateur.getNom());
-demandeur.setPrenom(utilisateur.getPrenom());
-demandeur.setId(utilisateur.getId());
-demandeur.setEmail(utilisateur.getEmail());
-demandeur.setRoles(utilisateur.getRoles());
-demandeur.setTelephone(utilisateur.getTelephone());
-demandeur.setPassword(utilisateur.getPassword());
-
-donneePro.setDemandeur(demandeur);
-missionStage.setDemandeur(demandeur);
-soutien.setMissionStage(missionStage);
-soutien.setManifestation(null);
-
-return soutienRepository.save(soutien);
-}
 
 
 }

@@ -34,7 +34,7 @@ private List<MissionStage> missions;
 @OneToMany(mappedBy="demandeur", cascade=CascadeType.ALL)
 private List<DonneePro> donneePros;
 
-    public Demandeur(String nom, String prenom, String telephone, String email, String encode) {
+public Demandeur(String nom, String prenom, String telephone, String email, String encode) {
        super(nom, prenom, telephone, email, encode);
     }
 
