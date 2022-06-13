@@ -5,7 +5,14 @@
 package com.cim.typeA.controller;
 
 
+import com.cim.typeA.exception.ResourceNotFoundException;
+import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.MissionStage;
+import com.cim.typeA.model.MissionStage;
+import com.cim.typeA.model.Soutien;
+import com.cim.typeA.payload.holder.MissionStageHolder;
+import com.cim.typeA.repository.DemandeurRepository;
+import com.cim.typeA.repository.MissionStageRepository;
 import com.cim.typeA.service.MissionStageService;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,6 +46,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MissionStageController {
 
 final MissionStageService missionStageService;
+final DemandeurRepository demandeurRepository;
+final MissionStageRepository missionStageRepository;
 
 
 @PostMapping("/")
@@ -128,5 +137,22 @@ public ResponseEntity<?> findAllByDateCreation(){
 return ResponseEntity.ok().body(missionStageService.findAllByDateCreation());
 }*/
 
+@PostMapping("/{userId}/")
+public ResponseEntity<?> addMissionStage(@PathVariable Long userId,  @RequestBody MissionStageHolder missionStageHolder) {
+//return ResponseEntity.ok().body(manifestationService.addMissionStage(userId, donneePro, manifestation, soutien));
+MissionStage missionStage = missionStageHolder.getMissionStage();
+DonneePro donneePro = missionStageHolder.getDonneePro();
+Soutien soutien = missionStageHolder.getSoutien();
+
+MissionStage missionStageBD = demandeurRepository.findById(userId).map(demandeur->{
+missionStage.setDemandeur(demandeur);
+donneePro.setMissionStage(missionStage);
+missionStage.setDonneePro(donneePro);
+missionStage.setSoutien(soutien);
+soutien.setMissionStage(missionStage);
+return missionStageRepository.save(missionStage);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
+}
 
 }

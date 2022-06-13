@@ -27,5 +27,8 @@ this.soutien = soutien;
 
 }
 
+public ManifestationHolder(){
+}
+
     
 }
