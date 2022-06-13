@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
@@ -46,10 +47,34 @@ private String entiteRecherche;
 //responsable de l'entité de recherche
 private String respoEntite;
 
-@ManyToOne(fetch = FetchType.LAZY, optional = false)
+/*@ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
-private Demandeur demandeur;
+@JsonBackReference
+private Demandeur demandeur;*/
+
+
+ /*@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "donneePro")
+@JsonIgnore
+    private Manifestation manifestation;
+
+@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "donneePro")
+    private MissionStage missionStage;*/
+
+
+@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "manifestation_id", nullable = true)
+    private Manifestation manifestation;
+
+@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mission_id", nullable = true)
+    private MissionStage missionStage;
+
+
 
 }

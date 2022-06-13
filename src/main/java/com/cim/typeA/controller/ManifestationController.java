@@ -179,47 +179,35 @@ return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
 @PostMapping("/{userId}/")
 public ResponseEntity<?> addManifestation(@PathVariable Long userId,  @RequestBody ManifestationHolder manifestationHolder) {
 //return ResponseEntity.ok().body(manifestationService.addManifestation(userId, donneePro, manifestation, soutien));
-
-/*
-Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
-if(demandeur == null) throw new Exception("User doesn't exist");
-
-//***Demandeur foreign keys
-//for manifestation:
-demandeur.getManifestations().forEach((manifest) ->{
-manifest.setDemandeur(demandeur);
-});
-//for MissionStage
-demandeur.getMissions().forEach((missionStage) -> {
-missionStage.setDemandeur(demandeur);
-});
-//for DonneePro
-demandeur.getDonneePros().forEach((donneeP) ->{
-donneeP.setDemandeur(demandeur);
-});
-donneePro.setDemandeur(demandeur);
-
-manifestation.setDemandeur(demandeur);
-
-manifestation.setSoutien(soutien);
-
-soutien.setManifestation(manifestation);
-
-return manifestationRepository.save(manifestation);
-
-*/
 Manifestation manifestation = manifestationHolder.getManifestation();
 DonneePro donneePro = manifestationHolder.getDonneePro();
 Soutien soutien = manifestationHolder.getSoutien();
+
 Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
 manifestation.setDemandeur(demandeur);
-donneePro.setDemandeur(demandeur);
+donneePro.setManifestation(manifestation);
+manifestation.setDonneePro(donneePro);
+manifestation.setSoutien(soutien);
+soutien.setManifestation(manifestation);
+return manifestationRepository.save(manifestation);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
+}
+/*
+//another one
+@PostMapping("/saveManifestation/{userId}/")
+public ResponseEntity<?> createManifestation(@PathVariable Long userId, DonneePro donneePro, Soutien soutien, @RequestBody Manifestation manifestation){
+Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
+manifestation.setDemandeur(demandeur);
+manifestation.setDonneePro(donneePro);
+//donneePro.setManifestation(manifestation);
 soutien.setManifestation(manifestation);
 manifestation.setSoutien(soutien);
 return manifestationRepository.save(manifestation);
 }).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
 return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
-}
+}*/
+
 
 
 }

@@ -22,17 +22,8 @@ public class DemandeurServiceImpl implements DemandeurService{
 private DemandeurRepository demandeurRepository;
 
 public Demandeur save(Demandeur demandeur){
-//for manifestation:
-demandeur.getManifestations().forEach((manifestation) ->{
+demandeur.getManifestations().forEach((manifestation)->{
 manifestation.setDemandeur(demandeur);
-});
-//for MissionStage
-demandeur.getMissions().forEach((missionStage) -> {
-missionStage.setDemandeur(demandeur);
-});
-//for DonneePro
-demandeur.getDonneePros().forEach((donneePro) ->{
-donneePro.setDemandeur(demandeur);
 });
 return demandeurRepository.save(demandeur);
 }

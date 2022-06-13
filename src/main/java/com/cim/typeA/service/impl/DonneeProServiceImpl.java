@@ -27,7 +27,8 @@ final DonneeProRepository donneeProRepository;
 public DonneePro save(DonneePro donneePro) throws Exception{
 DonneePro donneeProFromDB = donneeProRepository.findById(donneePro.getId()).orElse(null);
 if(donneeProFromDB != null) throw new Exception("DonneePro already exists");
-donneePro.setDemandeur(donneePro.getDemandeur());
+donneePro.setManifestation(donneePro.getManifestation());
+donneePro.setMissionStage(donneePro.getMissionStage());
 return donneeProRepository.save(donneePro);
 }
 

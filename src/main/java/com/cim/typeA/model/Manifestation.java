@@ -9,10 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,8 +67,16 @@ private int montantAnPrd;
   @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
+@JsonBackReference
 private Demandeur demandeur;
 
+/*@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "donneepro_id", nullable = true)
+    private DonneePro donneePro;*/
+@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "manifestation")
+    private DonneePro donneePro;
  @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "manifestation")

@@ -172,7 +172,7 @@ return manifestationRepository.findAllByUtilisateurId(utilisateurId);
 
 @Override
 public Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception{
-    Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
+   /* Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
 if(demandeur == null) throw new Exception("User doesn't exist");
 
 //***Demandeur foreign keys
@@ -184,10 +184,7 @@ manifest.setDemandeur(demandeur);
 demandeur.getMissions().forEach((missionStage) -> {
 missionStage.setDemandeur(demandeur);
 });
-//for DonneePro
-demandeur.getDonneePros().forEach((donneeP) ->{
-donneeP.setDemandeur(demandeur);
-});
+
 donneePro.setDemandeur(demandeur);
 
 manifestation.setDemandeur(demandeur);
@@ -196,7 +193,8 @@ manifestation.setSoutien(soutien);
 
 soutien.setManifestation(manifestation);
 
-return manifestationRepository.save(manifestation);
+return manifestationRepository.save(manifestation);*/
+return null;
 
 }
 }

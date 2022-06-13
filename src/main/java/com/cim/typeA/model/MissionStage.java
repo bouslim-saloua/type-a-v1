@@ -70,7 +70,18 @@ private String objet;
   @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JsonIgnore
+@JsonBackReference
 private Demandeur demandeur;
+
+/*@OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "donneepro_id", nullable = true)
+    private DonneePro donneePro;*/
+
+@OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "missionStage")
+    private DonneePro donneePro;
+
 
  @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,

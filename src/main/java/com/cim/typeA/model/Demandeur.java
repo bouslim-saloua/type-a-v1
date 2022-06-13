@@ -22,17 +22,17 @@ import lombok.Data;
 //@EqualsAndHashCode(callSuper = false)
 public class Demandeur extends Utilisateur {
 
-
+@JsonManagedReference
 @OneToMany(mappedBy="demandeur", cascade = CascadeType.ALL)
 private List<Manifestation> manifestations;
 
-
+@JsonManagedReference
 @OneToMany(mappedBy="demandeur", cascade=CascadeType.ALL)
 private List<MissionStage> missions;
 
-
+/*@JsonManagedReference
 @OneToMany(mappedBy="demandeur", cascade=CascadeType.ALL)
-private List<DonneePro> donneePros;
+private List<DonneePro> donneePros;*/
 
 public Demandeur(String nom, String prenom, String telephone, String email, String encode) {
        super(nom, prenom, telephone, email, encode);
