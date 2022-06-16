@@ -32,14 +32,10 @@ private Long id;
 @Temporal(TemporalType.DATE)
 private Date dateCreation; 
 //Intitulé mission ou stage
-
 private String titre;
-
-
 private String respoMarocain;
 
 private String partenaireEtranger;
-
 
 @Temporal(TemporalType.DATE)
 private Date dateDebut;
@@ -68,7 +64,7 @@ private String objet;
 
 
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "utilisateur_id", nullable = true)
+  @JoinColumn(name = "utilisateur_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
  
 @JsonBackReference

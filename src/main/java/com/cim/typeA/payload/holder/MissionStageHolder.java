@@ -4,9 +4,8 @@
  */
 package com.cim.typeA.payload.holder;
 
-import com.cim.typeA.model.DonneePro;
-import com.cim.typeA.model.MissionStage;
-import com.cim.typeA.model.Soutien;
+
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -15,17 +14,43 @@ import lombok.Data;
  */
 @Data
 public class MissionStageHolder {
-    private DonneePro donneePro;
-    private MissionStage missionStage;
-    private Soutien soutien;
+  
+//MissionStage attributs
+private Date dateCreation;
+private String titre;
+private String respoMarocain;
+private String partenaireEtranger;
+private Date dateDebut;
+private Date dateFin;
+private Date dateDepart;
+private Date dateRetour;
+private Boolean hasCurrentTypeA;
+private String cadreSoutien;
+private String status;
+private String pays;
+private String ville;
+private String objet;
 
-public MissionStageHolder(){
-}
+//DonneePro 
+private String fonctionnalite;
+private String grade;
+private Boolean salarie;
+private String anneeThese;
+private String directeurThese;
+private String ced;
+private String etablissement;
+private String departement;
+private String entiteRecherche;
+private String respoEntite;
 
-public MissionStageHolder(DonneePro donneePro, MissionStage missionStage, Soutien soutien){
-this.donneePro = donneePro;
-this.missionStage = missionStage;
-this.soutien = soutien;
-}
+//Soutien
+private String nature;
+private int mTitreTransport;
+private int mFraisInscription;
+private int mHebergement;
+private int mAutre;
+
+
+ 
 }
 

@@ -137,7 +137,7 @@ public ResponseEntity<?> findAllByDateCreation(){
 return ResponseEntity.ok().body(missionStageService.findAllByDateCreation());
 }*/
 
-@PostMapping("/{userId}/")
+/*@PostMapping("/{userId}/")
 public ResponseEntity<?> addMissionStage(@PathVariable Long userId,  @RequestBody MissionStageHolder missionStageHolder) {
 //return ResponseEntity.ok().body(manifestationService.addMissionStage(userId, donneePro, manifestation, soutien));
 MissionStage missionStage = missionStageHolder.getMissionStage();
@@ -153,6 +153,6 @@ soutien.setMissionStage(missionStage);
 return missionStageRepository.save(missionStage);
 }).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
 return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
-}
+}*/
 
 }
