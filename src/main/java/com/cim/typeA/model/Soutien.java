@@ -5,6 +5,7 @@
 package com.cim.typeA.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.*;
 import lombok.Data;
@@ -27,11 +28,24 @@ private int mHebergement;
 private int mAutre;
 private int mTotal;
 
-@OneToOne(fetch = FetchType.LAZY, optional = false)
+@OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "manifestation_id", nullable = true)
+@JsonBackReference
     private Manifestation manifestation;
 
-@OneToOne(fetch = FetchType.LAZY, optional = false)
+@OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "mission_id", nullable = true)
+@JsonBackReference
     private MissionStage missionStage;
+
+
+@JsonBackReference(value="soutien-mission")
+public Manifestation getManifestation(){
+return this.manifestation;
+}
+
+@JsonBackReference(value="soutien-missionStage")
+public MissionStage getMissionStage(){
+return this.missionStage;
+}
 }

@@ -23,7 +23,7 @@ dp.departement,
 dp.entite_recherche, 
 dp.respo_entite,
 m.id,
-m.cadre,
+
 m.cadre_soutien,
 m.date_creation,
 m.date_debut,
@@ -47,9 +47,9 @@ mission_stage m,
 donnee_pro dp,
 soutien s
 WHERE
-s.mission_stage_id = m.id 
-and m.demandeur = u.id
-and u.id = dp.demandeur
+s.mission_id = m.id 
+and m.utilisateur_id = u.id
+and m.id = dp.mission_id
 and m.id = $P{idMission} ;
 ]]>
 	</queryString>
@@ -128,11 +128,7 @@ and m.id = $P{idMission} ;
 		<property name="com.jaspersoft.studio.field.label" value="id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="mission_stage"/>
 	</field>
-	<field name="cadre" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="cadre"/>
-		<property name="com.jaspersoft.studio.field.label" value="cadre"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="mission_stage"/>
-	</field>
+	
 	<field name="cadre_soutien" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="cadre_soutien"/>
 		<property name="com.jaspersoft.studio.field.label" value="cadre_soutien"/>

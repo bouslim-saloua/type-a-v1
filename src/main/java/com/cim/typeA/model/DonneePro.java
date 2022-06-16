@@ -5,24 +5,16 @@
 package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -37,7 +29,7 @@ private Long id;
 private String fonctionnalite;
 private String grade;
 private Boolean salarie;
-private int anneeThese;
+private String anneeThese;
 private String directeurThese;
 private String ced;
 
@@ -47,34 +39,27 @@ private String entiteRecherche;
 //responsable de l'entité de recherche
 private String respoEntite;
 
-/*@ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "utilisateur_id", nullable = true)
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  @JsonIgnore
-@JsonBackReference
-private Demandeur demandeur;*/
 
 
- /*@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "donneePro")
-@JsonIgnore
-    private Manifestation manifestation;
-
-@OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "donneePro")
-    private MissionStage missionStage;*/
-
-
-@OneToOne(fetch = FetchType.LAZY, optional = false)
+@OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "manifestation_id", nullable = true)
+@JsonBackReference
     private Manifestation manifestation;
 
-@OneToOne(fetch = FetchType.LAZY, optional = false)
+@OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "mission_id", nullable = true)
+@JsonBackReference
     private MissionStage missionStage;
 
 
+@JsonBackReference(value ="donneePro-manifestation")
+public Manifestation getManifestation(){
+return this.manifestation;
+}
+
+@JsonBackReference(value="donneePro-missionStage")
+public MissionStage getMissionStage(){
+return this.missionStage;
+}
 
 }

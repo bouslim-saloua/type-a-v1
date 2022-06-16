@@ -6,6 +6,7 @@ package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -69,7 +70,7 @@ private String objet;
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "utilisateur_id", nullable = true)
   @OnDelete(action = OnDeleteAction.CASCADE)
-  @JsonIgnore
+ 
 @JsonBackReference
 private Demandeur demandeur;
 
@@ -80,13 +81,30 @@ private Demandeur demandeur;
 @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "missionStage")
+//@JsonIgnore
+@JsonManagedReference
     private DonneePro donneePro;
 
 
  @OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "missionStage")
+//@JsonIgnore
+@JsonManagedReference
     private Soutien soutien;
 
+@JsonManagedReference(value="donneePro-missionStage")
+public DonneePro getDonneePro(){
+return this.donneePro;
+}
+
+@JsonManagedReference(value="soutien-missionStage")
+public Soutien getSoutien(){
+return this.soutien;
+}
+@JsonBackReference(value="demandeur-demande")
+public Demandeur getDemandeur(){
+return this.demandeur;
+}
  
 }

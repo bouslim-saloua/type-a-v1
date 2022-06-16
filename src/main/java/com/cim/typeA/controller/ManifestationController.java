@@ -174,7 +174,7 @@ return manifestationRepository.save(manifestation);
 return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
 
 }*/
-
+/*
 //another try
 @PostMapping("/{userId}/")
 public ResponseEntity<?> addManifestation(@PathVariable Long userId,  @RequestBody ManifestationHolder manifestationHolder) {
@@ -183,6 +183,19 @@ Manifestation manifestation = manifestationHolder.getManifestation();
 DonneePro donneePro = manifestationHolder.getDonneePro();
 Soutien soutien = manifestationHolder.getSoutien();
 
+Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
+manifestation.setDemandeur(demandeur);
+donneePro.setManifestation(manifestation);
+manifestation.setDonneePro(donneePro);
+manifestation.setSoutien(soutien);
+soutien.setManifestation(manifestation);
+return manifestationRepository.save(manifestation);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
+}
+
+@PostMapping("/save/{userId}")
+public ResponseEntity<?> addManifestation(@PathVariable Long userId, @RequestBody DonneePro donneePro, @RequestBody Manifestation manifestation, @RequestBody Soutien soutien){
 Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
 manifestation.setDemandeur(demandeur);
 donneePro.setManifestation(manifestation);
@@ -207,6 +220,69 @@ return manifestationRepository.save(manifestation);
 }).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
 return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
 }*/
+
+//Another try
+@PostMapping("/{userId}")
+public ResponseEntity<?> createManifestation(@PathVariable Long userId, @RequestBody ManifestationHolder manifestationHolder){
+/*
+Manifestation manifestation = manifestationHolder.getManifestation();
+DonneePro donneePro = manifestationHolder.getDonneePro();
+Soutien soutien = manifestationHolder.getSoutien();
+
+*/
+
+DonneePro donneePro = new DonneePro();
+Manifestation manifestation = new Manifestation();
+Soutien soutien  = new Soutien();
+//DonneePro
+donneePro.setAnneeThese(manifestationHolder.getAnneeThese());
+donneePro.setCed(manifestationHolder.getCed());
+donneePro.setDepartement(manifestationHolder.getDepartement());
+donneePro.setDirecteurThese(manifestationHolder.getDirecteurThese());
+donneePro.setEntiteRecherche(manifestationHolder.getEntiteRecherche());
+donneePro.setEtablissement(manifestationHolder.getEtablissement());
+donneePro.setFonctionnalite(manifestationHolder.getFonctionnalite());
+donneePro.setGrade(manifestationHolder.getGrade());
+donneePro.setRespoEntite(manifestationHolder.getRespoEntite());
+donneePro.setSalarie(manifestationHolder.getSalarie());
+//Manifestation
+
+manifestation.setDateCreation(manifestationHolder.getDateCreation());
+manifestation.setTitreManifestation(manifestationHolder.getTitreManifestation());
+manifestation.setTitreParticipation(manifestationHolder.getTitreParticipation());
+manifestation.setPays(manifestationHolder.getPays());
+manifestation.setVille(manifestationHolder.getVille());
+manifestation.setDateDebut(manifestationHolder.getDateDebut() );
+manifestation.setDateFin(manifestationHolder.getDateFin());
+manifestation.setDateDepart(manifestationHolder.getDateDepart());
+manifestation.setDateRetour(manifestationHolder.getDateRetour());
+manifestation.setNatureParticipation(manifestationHolder.getNatureParticipation());
+manifestation.setStatus(manifestationHolder.getStatus());
+manifestation.setHasBenifitedTypeA(manifestationHolder.getHasBenifitedTypeA());
+manifestation.setMontantAnEnCours(manifestationHolder.getMontantAnEnCours());
+manifestation.setMontantAnPrd(manifestationHolder.getMontantAnPrd());
+
+//soutien
+
+soutien.setNature(manifestationHolder.getNature());
+soutien.setMTitreTransport(manifestationHolder.getMTitreTransport());
+soutien.setMHebergement(manifestationHolder.getMHebergement());
+soutien.setMFraisInscription(manifestationHolder.getMFraisInscription());
+soutien.setMAutre(manifestationHolder.getMAutre());
+
+Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
+manifestation.setDemandeur(demandeur);
+donneePro.setManifestation(manifestation);
+donneePro.setMissionStage(null);
+manifestation.setDonneePro(donneePro);
+manifestation.setSoutien(soutien);
+soutien.setMissionStage(null);
+soutien.setManifestation(manifestation);
+return manifestationRepository.save(manifestation);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
+
+}
 
 
 

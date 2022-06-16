@@ -41,4 +41,13 @@ public Demandeur(String nom, String prenom, String telephone, String email, Stri
 //Constructeur Par defaut
 public Demandeur(){
 }
+
+@JsonManagedReference(value="demandeur-demande")
+public List<MissionStage> getMissions(){
+return this.missions;
+}
+@JsonManagedReference(value="demandeur-demande")
+public List<Manifestation> getManifestations(){
+return this.manifestations;
+}
 }
