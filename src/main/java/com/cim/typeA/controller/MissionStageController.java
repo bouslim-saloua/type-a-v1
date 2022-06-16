@@ -155,4 +155,59 @@ return missionStageRepository.save(missionStage);
 return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
 }*/
 
+@PostMapping("/save/{userId}")
+public ResponseEntity<?> createMissionStage(@PathVariable Long userId, @RequestBody MissionStageHolder missionStageHolder){
+MissionStage missionStage = new MissionStage();
+Soutien soutien  = new Soutien();
+DonneePro donneePro = new DonneePro();
+
+missionStage.setDateCreation(missionStageHolder.getDateCreation());
+missionStage.setTitre(missionStageHolder.getTitre());
+missionStage.setRespoMarocain(missionStageHolder.getRespoMarocain());
+missionStage.setPartenaireEtranger(missionStageHolder.getPartenaireEtranger());
+missionStage.setDateDebut(missionStageHolder.getDateDebut());
+missionStage.setDateDepart(missionStageHolder.getDateDepart());
+missionStage.setDateFin(missionStageHolder.getDateFin());
+missionStage.setDateRetour(missionStageHolder.getDateRetour());
+missionStage.setHasCurrentTypeA(missionStageHolder.getHasCurrentTypeA());
+missionStage.setCadreSoutien(missionStageHolder.getCadreSoutien());
+missionStage.setStatus(missionStageHolder.getStatus());
+missionStage.setPays(missionStageHolder.getPays());
+missionStage.setVille(missionStageHolder.getVille());
+missionStage.setObjet(missionStageHolder.getObjet());
+missionStage.setMontantAnEnCours(missionStageHolder.getMontantAnEnCours());
+missionStage.setMontantAnPrd(missionStageHolder.getMontantAnPrd());
+//DonneePro
+donneePro.setAnneeThese(missionStageHolder.getAnneeThese());
+donneePro.setCed(missionStageHolder.getCed());
+donneePro.setDepartement(missionStageHolder.getDepartement());
+donneePro.setDirecteurThese(missionStageHolder.getDirecteurThese());
+donneePro.setEntiteRecherche(missionStageHolder.getEntiteRecherche());
+donneePro.setEtablissement(missionStageHolder.getEtablissement());
+donneePro.setFonctionnalite(missionStageHolder.getFonctionnalite());
+donneePro.setGrade(missionStageHolder.getGrade());
+donneePro.setRespoEntite(missionStageHolder.getRespoEntite());
+donneePro.setSalarie(missionStageHolder.getSalarie());
+
+//soutien
+
+soutien.setNature(missionStageHolder.getNature());
+soutien.setMTitreTransport(missionStageHolder.getMTitreTransport());
+soutien.setMHebergement(missionStageHolder.getMHebergement());
+soutien.setMFraisInscription(missionStageHolder.getMFraisInscription());
+soutien.setMAutre(missionStageHolder.getMAutre());
+
+
+MissionStage missionBD = demandeurRepository.findById(userId).map(demandeur->{
+missionStage.setDemandeur(demandeur);
+donneePro.setMissionStage(missionStage);
+missionStage.setDonneePro(donneePro);
+missionStage.setSoutien(soutien);
+soutien.setMissionStage(missionStage);
+return missionStageRepository.save(missionStage);
+}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
+return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
+
+}
+
 }

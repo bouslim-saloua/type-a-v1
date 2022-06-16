@@ -30,6 +30,10 @@ private String status;
 private String pays;
 private String ville;
 private String objet;
+private int montantAnEnCours;
+//montant année précédente
+private int montantAnPrd;
+
 
 //DonneePro 
 private String fonctionnalite;

@@ -273,10 +273,10 @@ soutien.setMAutre(manifestationHolder.getMAutre());
 Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
 manifestation.setDemandeur(demandeur);
 donneePro.setManifestation(manifestation);
-donneePro.setMissionStage(null);
+//donneePro.setMissionStage(null);
 manifestation.setDonneePro(donneePro);
 manifestation.setSoutien(soutien);
-soutien.setMissionStage(null);
+//soutien.setMissionStage(null);
 soutien.setManifestation(manifestation);
 return manifestationRepository.save(manifestation);
 }).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));

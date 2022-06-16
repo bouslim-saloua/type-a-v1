@@ -62,7 +62,10 @@ private String ville;
 
 private String objet;
 
+private int montantAnEnCours;
 
+//montant année précédente
+private int montantAnPrd;
 @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "utilisateur_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
