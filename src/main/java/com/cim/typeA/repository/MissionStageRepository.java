@@ -8,6 +8,7 @@ import com.cim.typeA.model.MissionStage;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -41,4 +42,6 @@ public Long countAllInProgress();
 
 /*@Query(value="SELECT m FROM MissionStage ORDER BY m.date_creation ASC")
 public List<MissionStage> findAllByDateCreation();*/
+@Query(value="SELECT * FROM mission_stage m WHERE m.utilisateur_id = :utilisateurId ", nativeQuery = true)
+public List<MissionStage> findAllByUtilisateurId(@Param("utilisateurId") Long utilisateurId);
 }

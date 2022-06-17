@@ -39,5 +39,6 @@ Long countAllInProgress();
 void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException ;
 
  //List<MissionStage> findAllByDateCreation();
+List<MissionStage> findAllByUtilisateurId( Long utilisateurId);
 
 }

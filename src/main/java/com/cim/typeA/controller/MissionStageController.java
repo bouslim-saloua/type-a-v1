@@ -17,6 +17,7 @@ import com.cim.typeA.service.MissionStageService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -210,4 +211,8 @@ return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
 
 }
 
+@GetMapping("/missionsByUser/{utilisateurId}")
+public List<MissionStage> findAllByUtilisateurId(@PathVariable Long utilisateurId){
+return missionStageService.findAllByUtilisateurId(utilisateurId);
+}
 }

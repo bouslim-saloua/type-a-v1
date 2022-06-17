@@ -129,4 +129,9 @@ public void exportPdfFile(Long id, OutputStream outPutStream) throws SQLExceptio
 JasperExportManager.exportReportToPdfStream(jasperPrint, outPutStream);
 }
 
+@Override
+public List<MissionStage> findAllByUtilisateurId(Long utilisateurId){
+return missionStageRepository.findAllByUtilisateurId(utilisateurId);
+}
+
 }

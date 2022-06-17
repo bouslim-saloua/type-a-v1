@@ -129,20 +129,6 @@ return ResponseEntity.ok().body("La manifestation [ " + manifestationService.del
   model.setViewName("home");
   return model;
  }
-/*@PostMapping("/id/{idManifestation}")
-public void export(ModelAndView model, HttpServletResponse response, @PathVariable Long idManifestation) throws IOException, JRException, SQLException {
-    JasperPrint jasperPrint = null;
-response.setContentType("application/x-download");
-response.setHeader("Content-Disposition", String.format("attachement; fileName=\"manifestation.pdf\"" ));
-    OutputStream out = response.getOutputStream();
-jasperPrint = manifestationService.exportPdfFile(idManifestation);
-    JasperExportManager.exportReportToPdfStream(jasperPrint, out);
-}*/
-
-/*@PostMapping("/id/{idManifestation}")
-public void exportPdfFile(HttpServletResponse response, @PathVariable Long idManifestation) throws SQLException, JRException, IOException{
-manifestationService.exportPdfFile(response, idManifestation);
-}*/
 
  @GetMapping("/id/{id}")
  public void generateReport(@PathVariable Long id, HttpServletResponse response) throws IOException, JRException, SQLException {
@@ -153,83 +139,19 @@ OutputStream out = response.getOutputStream();
 manifestationService.exportPdfFile(id, out);
 }
 
-/*@GetMapping("/History")
-public ResponseEntity<?> findAllByDateCreation(){
-return ResponseEntity.ok().body(manifestationService.findAllByDateCreation());
-}*/
+
 
 @GetMapping("/manifestationsByUser/{utilisateurId}")
 public List<Manifestation> findAllByUtilisateurId(@PathVariable Long utilisateurId){
 return manifestationService.findAllByUtilisateurId(utilisateurId);
 }
 
-/*@PostMapping("/{userId}/{manifestation}")
-public ResponseEntity<?> addManifestation(@PathVariable Long userId, @RequestBody Manifestation manifestation){
-    //Utilisateur utilisateurById = utilisateurRepository.findById(utilisateurPostDto.getId()).orElse(null);
 
-Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
-manifestation.setDemandeur(demandeur);
-return manifestationRepository.save(manifestation);
-}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
-return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
-
-}*/
-/*
-//another try
-@PostMapping("/{userId}/")
-public ResponseEntity<?> addManifestation(@PathVariable Long userId,  @RequestBody ManifestationHolder manifestationHolder) {
-//return ResponseEntity.ok().body(manifestationService.addManifestation(userId, donneePro, manifestation, soutien));
-Manifestation manifestation = manifestationHolder.getManifestation();
-DonneePro donneePro = manifestationHolder.getDonneePro();
-Soutien soutien = manifestationHolder.getSoutien();
-
-Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
-manifestation.setDemandeur(demandeur);
-donneePro.setManifestation(manifestation);
-manifestation.setDonneePro(donneePro);
-manifestation.setSoutien(soutien);
-soutien.setManifestation(manifestation);
-return manifestationRepository.save(manifestation);
-}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
-return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
-}
-
-@PostMapping("/save/{userId}")
-public ResponseEntity<?> addManifestation(@PathVariable Long userId, @RequestBody DonneePro donneePro, @RequestBody Manifestation manifestation, @RequestBody Soutien soutien){
-Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
-manifestation.setDemandeur(demandeur);
-donneePro.setManifestation(manifestation);
-manifestation.setDonneePro(donneePro);
-manifestation.setSoutien(soutien);
-soutien.setManifestation(manifestation);
-return manifestationRepository.save(manifestation);
-}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
-return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
-}
-/*
-//another one
-@PostMapping("/saveManifestation/{userId}/")
-public ResponseEntity<?> createManifestation(@PathVariable Long userId, DonneePro donneePro, Soutien soutien, @RequestBody Manifestation manifestation){
-Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
-manifestation.setDemandeur(demandeur);
-manifestation.setDonneePro(donneePro);
-//donneePro.setManifestation(manifestation);
-soutien.setManifestation(manifestation);
-manifestation.setSoutien(soutien);
-return manifestationRepository.save(manifestation);
-}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
-return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
-}*/
 
 //Another try
 @PostMapping("/{userId}")
 public ResponseEntity<?> createManifestation(@PathVariable Long userId, @RequestBody ManifestationHolder manifestationHolder){
-/*
-Manifestation manifestation = manifestationHolder.getManifestation();
-DonneePro donneePro = manifestationHolder.getDonneePro();
-Soutien soutien = manifestationHolder.getSoutien();
 
-*/
 
 DonneePro donneePro = new DonneePro();
 Manifestation manifestation = new Manifestation();
@@ -283,6 +205,7 @@ return manifestationRepository.save(manifestation);
 return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
 
 }
+
 
 
 
