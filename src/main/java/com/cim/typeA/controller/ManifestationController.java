@@ -16,6 +16,11 @@ import com.cim.typeA.service.ManifestationService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -150,8 +155,12 @@ return manifestationService.findAllByUtilisateurId(utilisateurId);
 
 //Another try
 @PostMapping("/{userId}")
-public ResponseEntity<?> createManifestation(@PathVariable Long userId, @RequestBody ManifestationHolder manifestationHolder){
+public ResponseEntity<?> createManifestation(@PathVariable Long userId, @RequestBody ManifestationHolder manifestationHolder) throws ParseException{
 
+String dateC = manifestationHolder.getDateCreation();
+ 
+    //    LocalDate dateCreation =  LocalDate.parse(dateC, DateTimeFormatter.ISO_DATE.ISO_DATE);
+ Date dateCreation = new SimpleDateFormat("dd/MM/yyyy").parse(dateC);
 
 DonneePro donneePro = new DonneePro();
 Manifestation manifestation = new Manifestation();
@@ -169,7 +178,7 @@ donneePro.setRespoEntite(manifestationHolder.getRespoEntite());
 donneePro.setSalarie(manifestationHolder.getSalarie());
 //Manifestation
 
-manifestation.setDateCreation(manifestationHolder.getDateCreation());
+manifestation.setDateCreation(dateCreation);
 manifestation.setTitreManifestation(manifestationHolder.getTitreManifestation());
 manifestation.setTitreParticipation(manifestationHolder.getTitreParticipation());
 manifestation.setPays(manifestationHolder.getPays());

@@ -16,7 +16,7 @@ import lombok.Data;
 public class MissionStageHolder {
   
 //MissionStage attributs
-private Date dateCreation;
+private String dateCreation;
 private String titre;
 private String respoMarocain;
 private String partenaireEtranger;

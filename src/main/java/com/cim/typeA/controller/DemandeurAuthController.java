@@ -87,7 +87,7 @@ userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(),roles)
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 
-            //Error when telephone is already in use!
+            //Error when phone is already in use!
 if(demandeurRepository.existsByTelephone(signUpRequest.getTelephone()) || userRepository.existsByTelephone(signUpRequest.getTelephone())){
 return ResponseEntity.badRequest().body(new MessageResponse("Erorr: N° Telephone est déjà utilisé!"));
 }
@@ -97,9 +97,15 @@ return ResponseEntity.badRequest().body(new MessageResponse("Erorr: N° Telephon
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
 		if (strRoles == null) {
-			Role adminRole = roleRepository.findByName(ERole.ROLE_USER);
-//orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-			roles.add(adminRole);
+			Role userRole = roleRepository.findByName(ERole.ROLE_USER);//.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				
+					Role userRole = roleRepository.findByName(ERole.ROLE_USER);//.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(userRole);
+				
+			});
 		}
 		demandeur.setRoles(roles);
 		demandeurRepository.save(demandeur);

@@ -31,7 +31,8 @@ this.soutien = soutien;
 public ManifestationHolder(){
 }*/
 //Manifestation attributs
-private Date dateCreation;
+//private Date dateCreation
+private String dateCreation;
 private String titreManifestation;
 private String titreParticipation;
 private String pays;

@@ -17,6 +17,9 @@ import com.cim.typeA.service.MissionStageService;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -157,12 +160,15 @@ return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
 }*/
 
 @PostMapping("/save/{userId}")
-public ResponseEntity<?> createMissionStage(@PathVariable Long userId, @RequestBody MissionStageHolder missionStageHolder){
+public ResponseEntity<?> createMissionStage(@PathVariable Long userId, @RequestBody MissionStageHolder missionStageHolder) throws ParseException{
 MissionStage missionStage = new MissionStage();
 Soutien soutien  = new Soutien();
 DonneePro donneePro = new DonneePro();
-
-missionStage.setDateCreation(missionStageHolder.getDateCreation());
+String dateC = missionStageHolder.getDateCreation();
+ 
+    //    LocalDate dateCreation =  LocalDate.parse(dateC, DateTimeFormatter.ISO_DATE.ISO_DATE);
+ Date dateCreation = new SimpleDateFormat("dd/MM/yyyy").parse(dateC);
+missionStage.setDateCreation(dateCreation);
 missionStage.setTitre(missionStageHolder.getTitre());
 missionStage.setRespoMarocain(missionStageHolder.getRespoMarocain());
 missionStage.setPartenaireEtranger(missionStageHolder.getPartenaireEtranger());

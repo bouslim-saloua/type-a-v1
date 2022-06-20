@@ -5,6 +5,7 @@
 package com.cim.typeA.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
@@ -30,6 +31,7 @@ private Long id;
 
 //@
 @Temporal(TemporalType.DATE)
+@JsonFormat(pattern="yyyy-MM-dd")
 private Date dateCreation; 
 //Intitulé mission ou stage
 private String titre;
@@ -38,15 +40,19 @@ private String respoMarocain;
 private String partenaireEtranger;
 
 @Temporal(TemporalType.DATE)
+@JsonFormat(pattern="yyyy-MM-dd")
 private Date dateDebut;
 
 @Temporal(TemporalType.DATE)
+@JsonFormat(pattern="yyyy-MM-dd")
 private Date dateFin;
 
 @Temporal(TemporalType.DATE)
+@JsonFormat(pattern="yyyy-MM-dd")
 private Date dateDepart;
 
 @Temporal(TemporalType.DATE)
+@JsonFormat(pattern="yyyy-MM-dd")
 private Date dateRetour;
 
 private Boolean hasCurrentTypeA;
