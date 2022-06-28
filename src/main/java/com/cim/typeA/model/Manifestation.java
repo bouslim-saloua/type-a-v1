@@ -28,10 +28,7 @@ public class Manifestation implements Serializable {
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
-/*@Temporal(TemporalType.DATE)
-@JsonFormat(pattern="yyyy-MM-dd")
-private Date dateCreation;*/
-//intitulé de la manifestation
+
 @Temporal(TemporalType.DATE)
 @JsonFormat(pattern="yyyy-MM-dd")
 private Date dateCreation;

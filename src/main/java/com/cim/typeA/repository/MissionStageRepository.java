@@ -22,7 +22,7 @@ public interface MissionStageRepository extends JpaRepository<MissionStage, Obje
 @Query(value="SELECT m FROM MissionStage m WHERE m.status='refusée'")
 public List<MissionStage> findAllRefused();
 
-@Query(value="SELECT m FROM MissionStage m WHERE m.status = 'acceptée'")
+@Query(value="SELECT m FROM MissionStage m WHERE m.status = 'validée'")
 public List<MissionStage> findAllAccepted();
 
 @Query(value="SELECT m FROM MissionStage m WHERE m.status = 'en cours'")
@@ -34,7 +34,7 @@ public Long countAll();
 @Query(value="SELECT COUNT(m.id) FROM MissionStage m WHERE m.status='refusée'")
 public Long countAllRefused();
 
-@Query(value="SELECT COUNT(m.id) FROM MissionStage m WHERE m.status='acceptée'")
+@Query(value="SELECT COUNT(m.id) FROM MissionStage m WHERE m.status='validée'")
 public Long countAllAccepted();
 
 @Query(value="SELECT COUNT(m.id) FROM MissionStage m WHERE m.status='en cours'")

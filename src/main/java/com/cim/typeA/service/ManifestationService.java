@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
 import com.cim.typeA.model.*;
+import com.cim.typeA.payload.holder.ManifestationHolderResponse;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -22,9 +23,9 @@ import org.springframework.http.ResponseEntity;
 public interface ManifestationService {
 Manifestation save(Manifestation manifestation) throws Exception;
 
- Manifestation valider(Manifestation manifestation) throws Exception;
+ Manifestation valider(Long id) throws Exception;
 
-Manifestation refuser(Manifestation manifestation) throws Exception;
+Manifestation refuser(Long id) throws Exception;
 
 Manifestation update(Manifestation manifestation) throws Exception;
 Long delete(Long id) throws Exception;
@@ -43,12 +44,8 @@ Long countAllInProgress();
 //ResponseEntity<byte[]> getReport(Long idManifestation) ;
 //void getReport(Long id) throws JRException, SQLException;
 void exportPdfFile(Long id, OutputStream outPutStream) throws SQLException, JRException, IOException;
-// List<Manifestation> findAllByDateCreation();
-//String generateReport(Long idManifestation);
-//JasperPrint exportPdfFile(Long idManifestation) throws SQLException, JRException, IOException;
-//void exportPdfFile(HttpServletResponse response, Long idManifestation) throws SQLException, JRException, IOException;
-List<Manifestation> findAllByUtilisateurId(Long utilisateurId);
+public Manifestation findManifestationById(Long id) throws Exception;
+List<Manifestation> findAllByUtilisateurId(Long utilisateurId) throws Exception;
 
-Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception;
-
+//Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception;
 }

@@ -27,6 +27,8 @@ public class DonneePro implements Serializable{
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 private Long id;
 private String fonctionnalite;
+//doctorant ou enseignant chercheur
+private String type;
 private String grade;
 private Boolean salarie;
 private String anneeThese;

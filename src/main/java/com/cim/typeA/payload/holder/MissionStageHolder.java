@@ -33,7 +33,7 @@ private String objet;
 private int montantAnEnCours;
 //montant année précédente
 private int montantAnPrd;
-
+private String type;
 
 //DonneePro 
 private String fonctionnalite;
@@ -47,13 +47,19 @@ private String departement;
 private String entiteRecherche;
 private String respoEntite;
 
+
 //Soutien
 private String nature;
 private int mTitreTransport;
 private int mFraisInscription;
 private int mHebergement;
-private int mAutre;
-
+private int mAutre; 
+private Long soutienId;
+//Demandeur
+private String nom;
+private String prenom;
+private String email;
+private String telephone;
 
  
 }

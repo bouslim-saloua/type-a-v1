@@ -10,6 +10,8 @@ import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.model.Soutien;
 import com.cim.typeA.model.Soutien;
 import com.cim.typeA.model.Utilisateur;
+import com.cim.typeA.payload.holder.SoutienHolder;
+import com.cim.typeA.repository.SoutienRepository;
 import com.cim.typeA.service.SoutienService;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -33,25 +35,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @author HP
  */
 
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins={"http://localhost:3000/","http://localhost:5000/"})
 @RestController
 @RequestMapping("api/soutien")
 @AllArgsConstructor
 public class SoutienController {
 
 final SoutienService soutienService;
-
+final SoutienRepository soutienRepository;
 @PostMapping("/save")
 public ResponseEntity<?> save(@RequestBody Soutien soutien) throws Exception{
 if(soutien == null) return ResponseEntity.badRequest().body("La soutien fourni n'est pas valide");
 return ResponseEntity.status(HttpStatus.CREATED).body(soutienService.save(soutien));
 }
 
-@PutMapping("/update")
-public ResponseEntity<?> update( @RequestBody Soutien soutien) throws Exception{
-if(soutien == null) return ResponseEntity.badRequest().body("La soutien fourni n'est pas valide");
-return ResponseEntity.ok().body(soutienService.update(soutien));
-}
+
 
 @GetMapping("/soutiens")
 public ResponseEntity<?> findAll(){
@@ -76,5 +74,13 @@ public ResponseEntity<?> findSumTotalSoutien(){
 return ResponseEntity.ok().body(soutienService.findSumTotalSoutien());
 }
 
-
+@PutMapping("/modifier")
+public Soutien modifier(@RequestBody SoutienHolder soutienHolder){
+Soutien soutien = soutienRepository.findById(soutienHolder.getId()).orElse(null);
+soutien.setMAutre(soutienHolder.getMAutre());
+soutien.setMFraisInscription(soutienHolder.getMFraisInscription());
+soutien.setMHebergement(soutienHolder.getMHebergement());
+soutien.setMTitreTransport(soutienHolder.getMTitreTransport());
+return soutienRepository.save(soutien);
+}
 }

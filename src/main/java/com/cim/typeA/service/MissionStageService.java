@@ -17,9 +17,9 @@ import net.sf.jasperreports.engine.JRException;
 public interface MissionStageService {
   MissionStage save(MissionStage missionStage) throws Exception;
 
- MissionStage valider(MissionStage missionStage) throws Exception;
+ MissionStage valider(Long id) throws Exception;
 
-MissionStage refuser(MissionStage missionStage) throws Exception;
+MissionStage refuser(Long id) throws Exception;
 
 MissionStage update(MissionStage missionStage) throws Exception;
 Long delete(Long id) throws Exception;

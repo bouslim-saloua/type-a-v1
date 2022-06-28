@@ -10,6 +10,8 @@ import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.model.MissionStage;
 import com.cim.typeA.model.Soutien;
+import com.cim.typeA.payload.holder.ManifestationHolderResponse;
+import com.cim.typeA.payload.holder.MissionHolderResponse;
 import com.cim.typeA.payload.holder.MissionStageHolder;
 import com.cim.typeA.repository.DemandeurRepository;
 import com.cim.typeA.repository.MissionStageRepository;
@@ -43,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author HP
  */
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins={"http://localhost:3000/","http://localhost:5000/"})
 @RestController
 @RequestMapping("api/mission")
 @AllArgsConstructor
@@ -68,16 +70,16 @@ return ResponseEntity.ok().body(missionStageService.update(missionStage));
 
 
 //update
-@PutMapping("/valider")
-public ResponseEntity<?> valider( @RequestBody MissionStage missionStage) throws Exception{
-if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
-return ResponseEntity.ok().body(missionStageService.valider(missionStage));
+@PutMapping("/valider/{id}")
+public ResponseEntity<?> valider( @PathVariable Long id) throws Exception{
+if(id == null) return ResponseEntity.badRequest().body("L'id fourni n'est pas valide");
+return ResponseEntity.ok().body(missionStageService.valider(id));
 }
 
-@PutMapping("/refuser")
-public ResponseEntity<?> refuser( @RequestBody MissionStage missionStage) throws Exception{
-if(missionStage == null) return ResponseEntity.badRequest().body("La missionStage fourni n'est pas valide");
-return ResponseEntity.ok().body(missionStageService.refuser(missionStage));
+@PutMapping("/refuser/{id}")
+public ResponseEntity<?> refuser( @PathVariable Long id) throws Exception{
+if(id == null) return ResponseEntity.badRequest().body("L'id fourni n'est pas valide");
+return ResponseEntity.ok().body(missionStageService.refuser(id));
 }
 
 @GetMapping("/missionStages")
@@ -136,28 +138,7 @@ OutputStream out = response.getOutputStream();
 missionStageService.exportPdfFile(id, out);
 }
 
-/*@GetMapping("/History")
-public ResponseEntity<?> findAllByDateCreation(){
-return ResponseEntity.ok().body(missionStageService.findAllByDateCreation());
-}*/
 
-/*@PostMapping("/{userId}/")
-public ResponseEntity<?> addMissionStage(@PathVariable Long userId,  @RequestBody MissionStageHolder missionStageHolder) {
-//return ResponseEntity.ok().body(manifestationService.addMissionStage(userId, donneePro, manifestation, soutien));
-MissionStage missionStage = missionStageHolder.getMissionStage();
-DonneePro donneePro = missionStageHolder.getDonneePro();
-Soutien soutien = missionStageHolder.getSoutien();
-
-MissionStage missionStageBD = demandeurRepository.findById(userId).map(demandeur->{
-missionStage.setDemandeur(demandeur);
-donneePro.setMissionStage(missionStage);
-missionStage.setDonneePro(donneePro);
-missionStage.setSoutien(soutien);
-soutien.setMissionStage(missionStage);
-return missionStageRepository.save(missionStage);
-}).orElseThrow(() -> new ResourceNotFoundException("Not found demandeur with id = " + userId));
-return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
-}*/
 
 @PostMapping("/save/{userId}")
 public ResponseEntity<?> createMissionStage(@PathVariable Long userId, @RequestBody MissionStageHolder missionStageHolder) throws ParseException{
@@ -195,7 +176,7 @@ donneePro.setFonctionnalite(missionStageHolder.getFonctionnalite());
 donneePro.setGrade(missionStageHolder.getGrade());
 donneePro.setRespoEntite(missionStageHolder.getRespoEntite());
 donneePro.setSalarie(missionStageHolder.getSalarie());
-
+donneePro.setType(missionStageHolder.getType());
 //soutien
 
 soutien.setNature(missionStageHolder.getNature());
@@ -220,5 +201,53 @@ return new ResponseEntity<>(missionStage, HttpStatus.CREATED);
 @GetMapping("/missionsByUser/{utilisateurId}")
 public List<MissionStage> findAllByUtilisateurId(@PathVariable Long utilisateurId){
 return missionStageService.findAllByUtilisateurId(utilisateurId);
+}
+
+@GetMapping("/mission/{id}")
+public MissionHolderResponse findMissionById(@PathVariable Long id) {
+MissionStage missionStage = missionStageRepository.findById(id).orElse(null);
+MissionHolderResponse response = new MissionHolderResponse();
+response.setDateCreation(missionStage.getDateCreation());
+response.setTitre(missionStage.getTitre());
+response.setRespoMarocain(missionStage.getRespoMarocain());
+response.setPartenaireEtranger(missionStage.getPartenaireEtranger());
+response.setDateDebut(missionStage.getDateDebut());
+response.setDateDepart(missionStage.getDateDepart());
+response.setDateFin(missionStage.getDateFin());
+response.setDateRetour(missionStage.getDateRetour());
+response.setHasCurrentTypeA(missionStage.getHasCurrentTypeA());
+response.setCadreSoutien(missionStage.getCadreSoutien());
+response.setStatus(missionStage.getStatus());
+response.setPays(missionStage.getPays());
+response.setVille(missionStage.getVille());
+response.setObjet(missionStage.getObjet());
+response.setMontantAnEnCours(missionStage.getMontantAnEnCours());
+response.setMontantAnPrd(missionStage.getMontantAnPrd());
+//DonneePro
+response.setAnneeThese(missionStage.getDonneePro().getAnneeThese());
+response.setCed(missionStage.getDonneePro().getCed());
+response.setDepartement(missionStage.getDonneePro().getDepartement());
+response.setDirecteurThese(missionStage.getDonneePro().getDirecteurThese());
+response.setEntiteRecherche(missionStage.getDonneePro().getEntiteRecherche());
+response.setEtablissement(missionStage.getDonneePro().getEtablissement());
+response.setFonctionnalite(missionStage.getDonneePro().getFonctionnalite());
+response.setGrade(missionStage.getDonneePro().getGrade());
+response.setRespoEntite(missionStage.getDonneePro().getRespoEntite());
+response.setSalarie(missionStage.getDonneePro().getSalarie());
+response.setType(missionStage.getDonneePro().getType());
+//soutien
+
+response.setNature(missionStage.getSoutien().getNature());
+response.setMTitreTransport(missionStage.getSoutien().getMTitreTransport());
+response.setMHebergement(missionStage.getSoutien().getMHebergement());
+response.setMFraisInscription(missionStage.getSoutien().getMFraisInscription());
+response.setMAutre(missionStage.getSoutien().getMAutre());
+response.setEmail(missionStage.getDemandeur().getEmail());
+response.setNom(missionStage.getDemandeur().getNom());
+response.setTelephone(missionStage.getDemandeur().getTelephone());
+response.setPrenom(missionStage.getDemandeur().getPrenom());
+response.setSoutienId(missionStage.getSoutien().getId());
+return response;
+
 }
 }

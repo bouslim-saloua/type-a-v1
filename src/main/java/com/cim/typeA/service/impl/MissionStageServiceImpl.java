@@ -50,20 +50,20 @@ return missionStageRepository.save(missionStage);
 
 //update
 @Override
-public MissionStage valider(MissionStage missionStage) throws Exception{
-MissionStage missionStageFromDB = missionStageRepository.findById(missionStage.getId()).orElse(null);
+public MissionStage valider(Long id) throws Exception{
+MissionStage missionStageFromDB = missionStageRepository.findById(id).orElse(null);
 if(missionStageFromDB == null ) throw new Exception("Unfound");
-missionStage.setStatus("validée");
-return missionStageRepository.save(missionStage);
+missionStageFromDB.setStatus("validée");
+return missionStageRepository.save(missionStageFromDB);
 }
 
 //update
 @Override
-public MissionStage refuser(MissionStage missionStage) throws Exception{
-MissionStage missionStageFromDB = missionStageRepository.findById(missionStage.getId()).orElse(null);
+public MissionStage refuser(Long id) throws Exception{
+MissionStage missionStageFromDB = missionStageRepository.findById(id).orElse(null);
 if(missionStageFromDB == null ) throw new Exception("Unfound");
-missionStage.setStatus("refusée");
-return missionStageRepository.save(missionStage);
+missionStageFromDB.setStatus("refusée");
+return missionStageRepository.save(missionStageFromDB);
 }
 
 @Override

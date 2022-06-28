@@ -13,7 +13,6 @@ import com.cim.typeA.dto.UtilisateurPostDto;
 import com.cim.typeA.service.UtilisateurService;
 import io.swagger.annotations.Api;
 import java.util.List;
-import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("Cette end-point permet de gerer les utilisateurs")
 @RestController
 @RequestMapping("api/utilisateur")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins={"http://localhost:3000/","http://localhost:5000/"})
 public class UtilisateurController {
 
 final UtilisateurService utilisateurService;

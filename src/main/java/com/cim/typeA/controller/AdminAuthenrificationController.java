@@ -39,8 +39,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author USER
  */
-//@CrossOrigin("http://localhost:3000/")
-@CrossOrigin(origins = "*", maxAge = 3600)
+
+@CrossOrigin(origins={"http://localhost:3000/","http://localhost:5000/"})
 @RestController
 @RequestMapping("/api/admin/auth")
 public class AdminAuthenrificationController {
@@ -72,8 +72,7 @@ UtilisateurRepository userRepository;
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-//String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles
-	// public JwtResponse(String accessToken, Long id, String email, String nom, String prenom,String telephone ,List<String> roles) {	
+
 return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getEmail(),
 userDetails.getNom(), userDetails.getPrenom(), userDetails.getTelephone(),roles));
 	}

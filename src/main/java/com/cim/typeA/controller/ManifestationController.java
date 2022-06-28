@@ -10,6 +10,7 @@ import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.Manifestation;
 import com.cim.typeA.model.Soutien;
 import com.cim.typeA.payload.holder.ManifestationHolder;
+import com.cim.typeA.payload.holder.ManifestationHolderResponse;
 import com.cim.typeA.repository.DemandeurRepository;
 import com.cim.typeA.repository.ManifestationRepository;
 import com.cim.typeA.service.ManifestationService;
@@ -44,7 +45,7 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author HP
  */
-@CrossOrigin("http://localhost:3000/")
+@CrossOrigin(origins={"http://localhost:3000/","http://localhost:5000/"})
 @RestController
 @RequestMapping("api/manifestation")
 @AllArgsConstructor
@@ -68,16 +69,16 @@ return ResponseEntity.ok().body(manifestationService.update(manifestation));
 
 
 //update
-@PutMapping("/valider")
-public ResponseEntity<?> valider( @RequestBody Manifestation manifestation) throws Exception{
-if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
-return ResponseEntity.ok().body(manifestationService.valider(manifestation));
+@PutMapping("/valider/{id}")
+public ResponseEntity<?> valider( @PathVariable Long id) throws Exception{
+if(id == null) return ResponseEntity.badRequest().body("L'id fourni n'est pas valide");
+return ResponseEntity.ok().body(manifestationService.valider(id));
 }
 
-@PutMapping("/refuser")
-public ResponseEntity<?> refuser( @RequestBody Manifestation manifestation) throws Exception{
-if(manifestation == null) return ResponseEntity.badRequest().body("La manifestation fourni n'est pas valide");
-return ResponseEntity.ok().body(manifestationService.refuser(manifestation));
+@PutMapping("/refuser/{id}")
+public ResponseEntity<?> refuser( @PathVariable Long id) throws Exception{
+if(id == null) return ResponseEntity.badRequest().body("L'id fourni n'est pas valide");
+return ResponseEntity.ok().body(manifestationService.refuser(id));
 }
 
 @GetMapping("/manifestations")
@@ -147,7 +148,7 @@ manifestationService.exportPdfFile(id, out);
 
 
 @GetMapping("/manifestationsByUser/{utilisateurId}")
-public List<Manifestation> findAllByUtilisateurId(@PathVariable Long utilisateurId){
+public List<Manifestation> findAllByUtilisateurId(@PathVariable Long utilisateurId) throws Exception{
 return manifestationService.findAllByUtilisateurId(utilisateurId);
 }
 
@@ -176,6 +177,7 @@ donneePro.setFonctionnalite(manifestationHolder.getFonctionnalite());
 donneePro.setGrade(manifestationHolder.getGrade());
 donneePro.setRespoEntite(manifestationHolder.getRespoEntite());
 donneePro.setSalarie(manifestationHolder.getSalarie());
+donneePro.setType(manifestationHolder.getType());
 //Manifestation
 
 manifestation.setDateCreation(dateCreation);
@@ -200,7 +202,7 @@ soutien.setMTitreTransport(manifestationHolder.getMTitreTransport());
 soutien.setMHebergement(manifestationHolder.getMHebergement());
 soutien.setMFraisInscription(manifestationHolder.getMFraisInscription());
 soutien.setMAutre(manifestationHolder.getMAutre());
-
+soutien.setMTotal(0);
 Manifestation manifestationBD = demandeurRepository.findById(userId).map(demandeur->{
 manifestation.setDemandeur(demandeur);
 donneePro.setManifestation(manifestation);
@@ -214,8 +216,55 @@ return manifestationRepository.save(manifestation);
 return new ResponseEntity<>(manifestation, HttpStatus.CREATED);
 
 }
+/*@GetMapping("/manifestation/{id}")
+public Manifestation findManifestationById(@PathVariable Long id) throws Exception{
+return manifestationService.findManifestationById(id);
+}*/
 
 
+@GetMapping("/manifestation/{id}")
+public ManifestationHolderResponse findManifestById(@PathVariable Long id) {
+Manifestation manifestationFromDB = manifestationRepository.findById(id).orElse(null);
+ManifestationHolderResponse response = new ManifestationHolderResponse();
+
+response.setDateCreation(manifestationFromDB.getDateCreation());
+response.setAnneeThese(manifestationFromDB.getDonneePro().getAnneeThese());
+response.setCed(manifestationFromDB.getDonneePro().getCed());
+response.setDateDebut(manifestationFromDB.getDateDebut());
+response.setDateDepart(manifestationFromDB.getDateDepart());
+response.setDateFin(manifestationFromDB.getDateFin());
+response.setDateRetour(manifestationFromDB.getDateRetour());
+response.setDepartement(manifestationFromDB.getDonneePro().getDepartement());
+response.setDirecteurThese(manifestationFromDB.getDonneePro().getDirecteurThese());
+response.setEmail(manifestationFromDB.getDemandeur().getEmail());
+response.setEntiteRecherche(manifestationFromDB.getDonneePro().getEntiteRecherche());
+response.setEtablissement(manifestationFromDB.getDonneePro().getEtablissement());
+response.setFonctionnalite(manifestationFromDB.getDonneePro().getFonctionnalite());
+response.setGrade(manifestationFromDB.getDonneePro().getGrade());
+response.setHasBenifitedTypeA(manifestationFromDB.getHasBenifitedTypeA());
+response.setMAutre(manifestationFromDB.getSoutien().getMAutre());
+response.setMFraisInscription(manifestationFromDB.getSoutien().getMFraisInscription());
+response.setMHebergement(manifestationFromDB.getSoutien().getMHebergement());
+response.setMTitreTransport(manifestationFromDB.getSoutien().getMTitreTransport());
+response.setMontantAnEnCours(manifestationFromDB.getMontantAnEnCours());
+
+response.setMontantAnPrd(manifestationFromDB.getMontantAnPrd());
+response.setNature(manifestationFromDB.getSoutien().getNature());
+response.setNatureParticipation(manifestationFromDB.getNatureParticipation());
+response.setNom(manifestationFromDB.getDemandeur().getNom());
+response.setPays(manifestationFromDB.getPays());
+response.setPrenom(manifestationFromDB.getDemandeur().getPrenom());
+response.setRespoEntite(manifestationFromDB.getDonneePro().getRespoEntite());
+response.setSalarie(manifestationFromDB.getDonneePro().getSalarie());
+response.setTelephone(manifestationFromDB.getDemandeur().getTelephone());
+response.setTitreManifestation(manifestationFromDB.getTitreManifestation());
+response.setTitreParticipation(manifestationFromDB.getTitreParticipation());
+response.setType(manifestationFromDB.getDonneePro().getType());
+response.setVille(manifestationFromDB.getVille());
+response.setSoutienId(manifestationFromDB.getSoutien().getId());
+return response;
+
+}
 
 
 }

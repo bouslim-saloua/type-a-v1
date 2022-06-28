@@ -42,11 +42,9 @@ return soutienRepository.save(soutien);
 
 @Override
 public Soutien update(Soutien soutien) throws Exception{
-int mTotal = calculerTotal(soutien);
 Soutien soutienFromDB = soutienRepository.findById(soutien.getId()).orElse(null);
 if(soutienFromDB == null) throw new Exception("not found");
 soutien.setId(soutienFromDB.getId());
-soutien.setMTotal(mTotal);
 return soutienRepository.save(soutien);
 }
 

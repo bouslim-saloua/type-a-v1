@@ -4,9 +4,6 @@
  */
 package com.cim.typeA.payload.holder;
 
-import com.cim.typeA.model.DonneePro;
-import com.cim.typeA.model.Manifestation;
-import com.cim.typeA.model.Soutien;
 import java.util.Date;
 import lombok.Data;
 
@@ -15,37 +12,26 @@ import lombok.Data;
  * @author USER
  */
 @Data
-public class ManifestationHolder {
-
-   /* DonneePro donneePro;
-    Manifestation manifestation;
-    Soutien soutien;
-
-public ManifestationHolder(DonneePro donneePro, Manifestation manifestation, Soutien soutien){
-this.donneePro  = donneePro;
-this.manifestation = manifestation;
-this.soutien = soutien;
-
-}
-
-public ManifestationHolder(){
-}*/
-//Manifestation attributs
-//private Date dateCreation
-private String dateCreation;
-private String titreManifestation;
-private String titreParticipation;
-private String pays;
-private String ville;
+public class MissionHolderResponse {
+    //MissionStage attributs
+private Date dateCreation;
+private String titre;
+private String respoMarocain;
+private String partenaireEtranger;
 private Date dateDebut;
 private Date dateFin;
 private Date dateDepart;
 private Date dateRetour;
-private String natureParticipation;
+private Boolean hasCurrentTypeA;
+private String cadreSoutien;
 private String status;
-private  Boolean hasBenifitedTypeA;
+private String pays;
+private String ville;
+private String objet;
 private int montantAnEnCours;
+//montant année précédente
 private int montantAnPrd;
+private String type;
 
 //DonneePro 
 private String fonctionnalite;
@@ -58,13 +44,16 @@ private String etablissement;
 private String departement;
 private String entiteRecherche;
 private String respoEntite;
-private String type;
+
 //Soutien
 private String nature;
 private int mTitreTransport;
 private int mFraisInscription;
 private int mHebergement;
 private int mAutre;
-
-    
+private String nom;
+private String prenom;
+private String email;
+private String telephone;
+private Long soutienId;
 }

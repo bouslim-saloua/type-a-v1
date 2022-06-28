@@ -10,6 +10,7 @@ import com.cim.typeA.model.Demandeur;
 import com.cim.typeA.model.DonneePro;
 import com.cim.typeA.model.Manifestation;
 import com.cim.typeA.model.Soutien;
+import com.cim.typeA.payload.holder.ManifestationHolderResponse;
 import com.cim.typeA.repository.DemandeurRepository;
 
 
@@ -86,20 +87,20 @@ return manifestationRepository.save(manifestation);
 
 //update
 @Override
-public Manifestation valider(Manifestation manifestation) throws Exception{
-Manifestation manifestationFromDB = manifestationRepository.findById(manifestation.getId()).orElse(null);
+public Manifestation valider(Long id) throws Exception{
+Manifestation manifestationFromDB = manifestationRepository.findById(id).orElse(null);
 if(manifestationFromDB == null ) throw new Exception("Unfound");
-manifestation.setStatus("validée");
-return manifestationRepository.save(manifestation);
+manifestationFromDB.setStatus("validée");
+return manifestationRepository.save(manifestationFromDB);
 }
 
 //update
 @Override
-public Manifestation refuser(Manifestation manifestation) throws Exception{
-Manifestation manifestationFromDB = manifestationRepository.findById(manifestation.getId()).orElse(null);
+public Manifestation refuser(Long id) throws Exception{
+Manifestation manifestationFromDB = manifestationRepository.findById(id).orElse(null);
 if(manifestationFromDB == null ) throw new Exception("Unfound");
-manifestation.setStatus("refusée");
-return manifestationRepository.save(manifestation);
+manifestationFromDB.setStatus("refusée");
+return manifestationRepository.save(manifestationFromDB);
 }
 
 @Override
@@ -171,30 +172,12 @@ return manifestationRepository.findAllByUtilisateurId(utilisateurId);
 }
 
 @Override
-public Manifestation addManifestation(Long userId, DonneePro donneePro, Manifestation manifestation, Soutien soutien) throws Exception{
-   /* Demandeur demandeur = demandeurRepository.findById(userId).orElse(null);
-if(demandeur == null) throw new Exception("User doesn't exist");
-
-//***Demandeur foreign keys
-//for manifestation:
-demandeur.getManifestations().forEach((manifest) ->{
-manifest.setDemandeur(demandeur);
-});
-//for MissionStage
-demandeur.getMissions().forEach((missionStage) -> {
-missionStage.setDemandeur(demandeur);
-});
-
-donneePro.setDemandeur(demandeur);
-
-manifestation.setDemandeur(demandeur);
-
-manifestation.setSoutien(soutien);
-
-soutien.setManifestation(manifestation);
-
-return manifestationRepository.save(manifestation);*/
-return null;
-
+public Manifestation findManifestationById(Long id) throws Exception{
+Manifestation manifestationFromDB = manifestationRepository.findById(id).orElse(null);
+if(manifestationFromDB == null ) throw new Exception("manifestation not found");
+return manifestationFromDB;
 }
+
+
+
 }
