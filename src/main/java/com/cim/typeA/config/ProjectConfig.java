@@ -68,9 +68,20 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter{
 			.exceptionHandling().authenticationEntryPoint((AuthenticationEntryPoint) unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
-.antMatchers("/**").permitAll() //permit all the routers after swagger-ui.html
-			.anyRequest().authenticated();
+			//.antMatchers("/api/test/**").permitAll()
+
+
+                //.antMatchers("/v1/api//**/ /").permitAll()
+                .antMatchers("/api/demandeur/auth/signIn").permitAll()
+.antMatchers("/api/demandeur/auth/signup").permitAll()
+.antMatchers("/api/admin/auth/signup").permitAll()
+.antMatchers("/api/admin/auth/signin").permitAll()
+                .antMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/api/demandeur/**").hasAuthority("ROLE_USER")
+ .antMatchers("/**").permitAll() //permit all the routers after swagger-ui.html
+			
+                .anyRequest().authenticated();
+                        
 		http.addFilterBefore((Filter) authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

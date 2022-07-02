@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -6,11 +6,8 @@ package com.cim.typeA.service.impl;
 
 
 
-import com.cim.typeA.model.Demandeur;
-import com.cim.typeA.model.DonneePro;
+
 import com.cim.typeA.model.Manifestation;
-import com.cim.typeA.model.Soutien;
-import com.cim.typeA.payload.holder.ManifestationHolderResponse;
 import com.cim.typeA.repository.DemandeurRepository;
 
 
@@ -36,7 +33,6 @@ import java.sql.SQLException;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
-import org.omg.SendingContext.RunTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
