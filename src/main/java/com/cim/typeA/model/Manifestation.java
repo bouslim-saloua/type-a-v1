@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
@@ -90,6 +91,8 @@ private Demandeur demandeur;
 //@JsonIgnore
     private Soutien soutien;
 
+@OneToMany(mappedBy = "manifestation")
+private List<Document> documents;
 
 @JsonManagedReference(value="donneePro-manifestation")
 public DonneePro getDonneePro(){
