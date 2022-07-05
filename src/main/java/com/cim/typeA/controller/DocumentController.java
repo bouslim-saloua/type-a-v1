@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -40,7 +41,7 @@ public class DocumentController {
 final DocumentService documentService;
 
 @PostMapping("/upload")
-public ResponseEntity<ResponseMessage> uploadFile(@PathVariable String libelle, @RequestParam("file") MultipartFile file){
+public ResponseEntity<ResponseMessage> uploadFile(@RequestParam String libelle, @RequestPart("file") MultipartFile file){
 String message= "";
 try{
 documentService.store(libelle, file);
