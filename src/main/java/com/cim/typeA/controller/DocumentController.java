@@ -52,10 +52,47 @@ message = "Could not upload the file: " + file.getOriginalFilename() + " !";
 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
 }
 }
+@PostMapping("/upload/manifestation/{idManifestation}")
+public ResponseEntity<ResponseMessage> uploadFileManifestation(@RequestParam String libelle, @RequestPart("file") MultipartFile file, @PathVariable Long idManifestation){
+String message= "";
+try{
+documentService.storeDocManifestation(libelle, file, idManifestation);
+message = "Document uploaded successfully : " + file.getOriginalFilename();
+return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+}catch(Exception e){
+message = "Could not upload the file: " + file.getOriginalFilename() + " !";
+return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+}
+}
+
+@PostMapping("/upload/mission/{idMission}")
+public ResponseEntity<ResponseMessage> uploadFileMission(@RequestParam String libelle, @RequestPart("file") MultipartFile file, @PathVariable Long idMission){
+String message= "";
+try{
+documentService.storeDocMission(libelle, file, idMission);
+message = "Document uploaded successfully : " + file.getOriginalFilename();
+return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+}catch(Exception e){
+message = "Could not upload the file: " + file.getOriginalFilename() + " !";
+return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+}
+}
 
 @GetMapping("/documents")
 public ResponseEntity<List<ResponseDocument>> getListDocuments(){
 List<ResponseDocument> documents = documentService.getAllDocuments().map(dbDocument -> {
+String documentDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/documents/").path(dbDocument.getId()).toUriString();
+
+return new ResponseDocument(
+dbDocument.getLibelle(), dbDocument.getNom(),documentDownloadUri, dbDocument.getType(), dbDocument.getData().length);
+}).collect(Collectors.toList());
+return ResponseEntity.status(HttpStatus.OK).body(documents);
+}
+
+
+@GetMapping("/documents/manifestation/{idManifestation}")
+public ResponseEntity<List<ResponseDocument>> getListDocumentsByManifestation(@PathVariable Long idManifestation){
+List<ResponseDocument> documents = documentService.getAllDocumentsByManifestation(idManifestation).map(dbDocument -> {
 String documentDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/documents/").path(dbDocument.getId()).toUriString();
 
 return new ResponseDocument(

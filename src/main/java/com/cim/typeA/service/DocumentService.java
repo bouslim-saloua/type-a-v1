@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface DocumentService {
   Document store(String libelle, MultipartFile file) throws IOException;
+Document storeDocManifestation(String libelle, MultipartFile file, Long idManifestation) throws IOException;
+Document storeDocMission(String libelle, MultipartFile file, Long idMission) throws IOException;
+Stream<Document> getAllDocumentsByManifestation(Long idManifestation);
 Document getDocument(String id);
     Stream<Document> getAllDocuments();
 

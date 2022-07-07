@@ -45,4 +45,8 @@ this.nom = nom;
 this.type = type;
 this.data = data;
 }
+
+//default constructor
+public Document(){
+}
 }
