@@ -37,7 +37,7 @@ private Manifestation manifestation;
 
 @ManyToOne
     @JoinColumn(name="mission_id", nullable=true)
-private MissionStage mission;
+private MissionStage missionStage;
 
 public Document(String libelle, String nom, String type, byte[] data){
 this.libelle   = libelle;

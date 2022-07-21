@@ -21,4 +21,6 @@ public interface DocumentRepository extends JpaRepository<Document, String>{
 @Query(value="SELECT * FROM Document m WHERE m.manifestation_id = :manifestationId ", nativeQuery = true)
 public List<Document> findAllDocumentsByManifestation(@Param("manifestationId") Long manifestationId);
 
+@Query(value="SELECT * FROM Document m WHERE m.mission_id = :missionId ", nativeQuery = true)
+public List<Document> findAllDocumentsByMission(@Param("missionId") Long missionId);
 }

@@ -101,6 +101,18 @@ dbDocument.getLibelle(), dbDocument.getNom(),documentDownloadUri, dbDocument.get
 return ResponseEntity.status(HttpStatus.OK).body(documents);
 }
 
+@GetMapping("/documents/mission/{idMission}")
+public ResponseEntity<List<ResponseDocument>> getListDocumentsByMission(@PathVariable Long idMission){
+List<ResponseDocument> documents = documentService.getAllDocumentsByMission(idMission).map(dbDocument -> {
+String documentDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/documents/").path(dbDocument.getId()).toUriString();
+
+return new ResponseDocument(
+dbDocument.getLibelle(), dbDocument.getNom(),documentDownloadUri, dbDocument.getType(), dbDocument.getData().length);
+}).collect(Collectors.toList());
+return ResponseEntity.status(HttpStatus.OK).body(documents);
+}
+
+
 @GetMapping("/documents/{id}")
     public ResponseEntity<byte[]> getDocument(@PathVariable String id){
     Document document  = documentService.getDocument(id);

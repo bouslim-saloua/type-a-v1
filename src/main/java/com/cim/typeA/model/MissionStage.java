@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 import lombok.Data;
@@ -79,6 +80,10 @@ private int montantAnPrd;
 @JsonBackReference
 private Demandeur demandeur;
 
+@OneToMany(mappedBy = "missionStage")
+@JsonIgnore
+private List<Document> documents;
+
 /*@OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "donneepro_id", nullable = true)
     private DonneePro donneePro;*/
@@ -97,6 +102,8 @@ private Demandeur demandeur;
 //@JsonIgnore
 @JsonManagedReference
     private Soutien soutien;
+
+
 
 @JsonManagedReference(value="donneePro-missionStage")
 public DonneePro getDonneePro(){

@@ -60,13 +60,18 @@ public Document storeDocMission(String libelle, MultipartFile file, Long idMissi
 String documentName = StringUtils.cleanPath(file.getOriginalFilename());
 Document documentDb = new Document(libelle, documentName, file.getContentType(), file.getBytes());
     MissionStage missionDB = missionRepository.findById(idMission).orElse(null);
-documentDb.setMission(missionDB);
+documentDb.setMissionStage(missionDB);
 return documentRepository.save(documentDb);
 }
 
 @Override
 public Stream<Document> getAllDocumentsByManifestation(Long idManifestation){
 return documentRepository.findAllDocumentsByManifestation(idManifestation).stream();
+}
+
+@Override
+public Stream<Document> getAllDocumentsByMission(Long idMission){
+return documentRepository.findAllDocumentsByMission(idMission).stream();
 }
 
 }

@@ -18,6 +18,7 @@ public interface DocumentService {
 Document storeDocManifestation(String libelle, MultipartFile file, Long idManifestation) throws IOException;
 Document storeDocMission(String libelle, MultipartFile file, Long idMission) throws IOException;
 Stream<Document> getAllDocumentsByManifestation(Long idManifestation);
+Stream<Document> getAllDocumentsByMission(Long idMission);
 Document getDocument(String id);
     Stream<Document> getAllDocuments();
 

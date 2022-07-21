@@ -92,6 +92,7 @@ private Demandeur demandeur;
     private Soutien soutien;
 
 @OneToMany(mappedBy = "manifestation")
+@JsonIgnore
 private List<Document> documents;
 
 @JsonManagedReference(value="donneePro-manifestation")
